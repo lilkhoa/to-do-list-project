@@ -18,27 +18,27 @@
 .card {
     border: none;
     border-radius: $border-radius;
-    
+
     &.shadow {
         box-shadow: $box-shadow-lg;
     }
-    
+
     // Card header improvements
     .card-header {
         background: linear-gradient(135deg, $primary-color, color.scale($primary-color, $lightness: 10%));
         color: white;
         border-bottom: none;
         border-radius: $border-radius $border-radius 0 0;
-        
+
         h4 {
             font-weight: 600;
-            
+
             i {
                 margin-right: 0.5rem; // Ensure proper spacing in card headers too
             }
         }
     }
-    
+
     .card-body {
         padding: 2rem;
     }
@@ -57,7 +57,7 @@
     padding: 0.75rem 1rem;
     font-size: 1rem;
     transition: all 0.15s ease-in-out;
-    
+
     &:focus {
         border-color: $primary-color;
         box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
@@ -78,47 +78,47 @@ textarea.form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    
+
     i {
         margin-right: 0.5rem; // This ensures all buttons have proper icon spacing
-        
+
         // For buttons with only icons, remove the margin
         &:only-child {
             margin-right: 0;
         }
     }
-    
+
     // Small button specific styling
     &.btn-sm {
         padding: 0.375rem 0.5rem;
         font-size: 0.875rem;
         min-width: 32px;
         min-height: 32px;
-        
+
         i {
             font-size: 0.875rem;
-            
+
             &:only-child {
                 margin-right: 0;
             }
         }
     }
-    
+
     &.btn-primary {
         background: linear-gradient(135deg, $primary-color, color.scale($primary-color, $lightness: -10%));
         border: none;
-        
+
         &:hover {
             background: linear-gradient(135deg, color.scale($primary-color, $lightness: -5%), color.scale($primary-color, $lightness: -15%));
             transform: translateY(-1px);
             box-shadow: 0 0.25rem 0.5rem rgba($primary-color, 0.3);
         }
     }
-    
+
     &.btn-secondary {
         background-color: $secondary-color;
         border: none;
-        
+
         &:hover {
             background-color: color.scale($secondary-color, $lightness: -10%);
             transform: translateY(-1px);
@@ -131,61 +131,61 @@ textarea.form-control {
     .card {
         max-width: 100%;
         margin: 0 auto;
-        
+
         .card-header {
             text-align: center;
             padding: 1.5rem 2rem;
-            
+
             h4 {
                 font-size: 1.5rem;
                 margin-bottom: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                
+
                 i {
                     font-size: 1.25rem;
                 }
             }
         }
-        
+
         .card-body {
             padding: 2.5rem;
-            
+
             .form-group {
                 margin-bottom: 1.5rem;
             }
-            
+
             .form-label {
                 font-size: 1rem;
                 color: $dark-color;
                 margin-bottom: 0.5rem;
                 display: block;
             }
-            
+
             .form-control {
                 font-size: 1rem;
                 padding: 0.875rem 1rem;
                 border: 2px solid #e9ecef;
-                
+
                 &:focus {
                     border-color: $primary-color;
                     box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.15);
                 }
-                
+
                 &[type="date"] {
                     color: $dark-color;
                 }
             }
-            
+
             textarea.form-control {
                 min-height: 100px;
                 resize: vertical;
             }
-            
+
             .btn-group {
                 margin-top: 2rem;
-                
+
                 .btn {
                     min-width: 120px;
                     font-weight: 600;
@@ -193,31 +193,31 @@ textarea.form-control {
             }
         }
     }
-    
+
     // Edit form specific styling
     .current-status {
         margin-top: 0.5rem;
-        
+
         .status-badge {
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
-            
+
             i {
                 margin-right: 0.5rem;
             }
-            
+
             &.completed {
                 background-color: #d4edda;
                 color: #155724;
                 border: 1px solid #c3e6cb;
             }
-            
+
             &.pending {
                 background-color: #e3f2fd;
                 color: #1565c0;
                 border: 1px solid #bbdefb;
             }
-            
+
             &.overdue {
                 background-color: #f8d7da;
                 color: #721c24;
@@ -225,8 +225,9 @@ textarea.form-control {
             }
         }
     }
-    
+
     .btn-group {
+
         .left-actions,
         .right-actions {
             display: flex;
@@ -241,44 +242,44 @@ textarea.form-control {
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0.375rem 0; // Reduced from 0.5rem
-    
+
     .navbar-brand {
         font-weight: 700;
         font-size: 1.1rem; // Reduced from 1.25rem
-        
+
         i {
             color: $success-color;
             margin-right: 0.4rem; // Reduced from 0.5rem
             font-size: 1rem; // Added explicit size
         }
     }
-    
+
     .nav-link {
         padding: 0.4rem 0.6rem; // Reduced from 0.5rem 0.75rem
         font-size: 0.85rem; // Reduced from 0.9rem
-        
+
         img {
             width: 24px; // Reduced from 28px
             height: 24px; // Reduced from 28px
         }
-        
+
         span {
             font-weight: 500;
             font-size: 0.85rem; // Added explicit size
         }
     }
-    
+
     .dropdown-menu {
         border: none;
         box-shadow: $box-shadow-lg;
         border-radius: $border-radius;
         min-width: 160px;
     }
-    
+
     .dropdown-item {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
-        
+
         &:hover {
             background-color: $light-color;
         }
@@ -292,32 +293,32 @@ textarea.form-control {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: $border-radius;
     border-left: 3px solid $primary-color;
-    
+
     &.no-due {
         background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
         border-left-color: #6c757d;
     }
-    
+
     .due-date-badge {
         display: flex;
         align-items: center;
-        
+
         i {
             font-size: 1.1rem;
             color: $primary-color;
             margin-right: 0.75rem;
         }
-        
+
         .due-info {
             display: flex;
             flex-direction: column;
-            
+
             .due-date-text {
                 font-weight: 600;
                 color: $dark-color;
                 font-size: 0.95rem;
             }
-            
+
             .due-time-text {
                 color: #6c757d;
                 font-size: 0.85rem;
@@ -325,14 +326,14 @@ textarea.form-control {
             }
         }
     }
-    
+
     .no-due-date {
         display: flex;
         align-items: center;
         color: #6c757d;
         font-style: italic;
         font-size: 0.9rem;
-        
+
         i {
             margin-right: 0.5rem;
             color: #adb5bd;
@@ -348,30 +349,30 @@ textarea.form-control {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
     overflow: hidden;
-    
+
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     }
-    
+
     &.completed {
         background-color: #f8f9fa;
         border-left: 4px solid $success-color;
     }
-    
+
     &.pending {
         border-left: 4px solid $primary-color;
     }
-    
+
     .card-body {
         padding: 1.5rem;
         position: relative;
-        
+
         &.opacity-75 {
             opacity: 0.75;
         }
     }
-    
+
     .card-title {
         font-size: 1.25rem;
         font-weight: 600;
@@ -379,34 +380,34 @@ textarea.form-control {
         margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
-        
+
         i {
             font-size: 1.1rem;
             margin-right: 0.5rem;
-            
+
             &.text-success {
                 color: $success-color !important;
             }
         }
     }
-    
+
     .card-text {
         font-size: 0.95rem;
         line-height: 1.5;
         margin-bottom: 1rem;
         color: #6c757d;
     }
-    
+
     .card-footer {
         background-color: transparent;
         border-top: 1px solid #e9ecef;
         padding: 1rem 1.5rem;
-        
+
         .task-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
+
             .task-status {
                 .badge {
                     font-size: 0.8rem;
@@ -415,18 +416,18 @@ textarea.form-control {
                     font-weight: 500;
                     display: inline-flex;
                     align-items: center;
-                    
+
                     i {
                         margin-right: 0.375rem;
                         font-size: 0.875rem;
                     }
-                    
+
                     &.status-completed {
                         background-color: #d4edda;
                         color: #155724;
                         border: 1px solid #c3e6cb;
                     }
-                    
+
                     &.status-pending {
                         background-color: #e3f2fd;
                         color: #1565c0;
@@ -434,15 +435,15 @@ textarea.form-control {
                     }
                 }
             }
-            
+
             .task-actions {
                 opacity: 0;
                 transition: opacity 0.3s ease;
-                
+
                 .btn {
                     margin-left: 0.25rem;
                     padding: 0.25rem 0.5rem;
-                    
+
                     &:hover {
                         transform: translateY(-1px);
                     }
@@ -450,7 +451,7 @@ textarea.form-control {
             }
         }
     }
-    
+
     &:hover .task-actions {
         opacity: 1;
     }
@@ -466,79 +467,79 @@ textarea.form-control {
         margin-bottom: 1rem;
         transition: all 0.3s ease;
         overflow: hidden;
-        
+
         &:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-            
+
             .task-actions {
                 opacity: 1;
             }
         }
-        
+
         &.completed {
             background-color: #f8f9fa;
             border-left: 4px solid $success-color;
-            
+
             .task-content {
                 opacity: 0.8;
             }
-            
+
             .task-title {
                 text-decoration: line-through;
                 color: #6c757d;
             }
         }
-        
+
         &.pending {
             border-left: 4px solid $primary-color;
         }
-        
+
         &.overdue {
             border-left: 4px solid $danger-color;
             background-color: #fdf2f2;
-            
+
             .task-title {
                 color: $danger-color;
             }
         }
-        
+
         .task-content {
             padding: 1.25rem;
             position: relative;
-            
+
             .task-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 margin-bottom: 1rem; // Keep original margin
-                
+
                 .task-title-section {
                     display: flex;
                     align-items: flex-start;
                     flex: 1;
                     margin-right: 1rem;
-                    
+
                     .task-status-icon {
                         margin-right: 0.75rem;
                         margin-top: 0.25rem;
-                        
+
                         i {
                             font-size: 1.2rem;
-                            
+
                             &.text-success {
                                 color: $success-color !important;
                             }
-                            
+
                             &.text-danger {
                                 color: $danger-color !important;
                             }
                         }
                     }
-                    
+
                     .task-info {
                         flex: 1;
-                        
+
                         .task-title {
                             font-size: 1.1rem;
                             font-weight: 600;
@@ -546,7 +547,7 @@ textarea.form-control {
                             margin-bottom: 0.25rem;
                             line-height: 1.3;
                         }
-                        
+
                         .task-description {
                             font-size: 0.9rem;
                             color: #6c757d;
@@ -555,65 +556,66 @@ textarea.form-control {
                         }
                     }
                 }
-                
+
                 .task-meta-section {
                     display: flex;
                     flex-direction: column;
                     align-items: flex-end;
                     gap: 0.5rem;
                     min-width: 120px; // Ensure minimum width for proper spacing
-                    
+
                     .due-date-info {
                         display: flex;
                         align-items: center;
                         font-size: 0.85rem;
                         color: #6c757d;
-                        
+
                         &.no-due {
                             font-style: italic;
-                            
+
                             i {
                                 margin-right: 0.25rem;
                                 color: #adb5bd;
                             }
                         }
-                        
+
                         &.overdue {
                             color: $danger-color;
                             font-weight: 600;
-                            
+
                             i {
                                 color: $danger-color !important;
                             }
-                            
+
                             .due-details {
+
                                 .due-date-text,
                                 .due-time-text {
                                     color: $danger-color !important;
                                 }
                             }
                         }
-                        
+
                         .due-date-badge {
                             display: flex;
                             align-items: center;
-                            
+
                             i {
                                 margin-right: 0.5rem;
                                 color: $primary-color;
                             }
-                            
+
                             .due-details {
                                 display: flex;
                                 flex-direction: column;
                                 text-align: right;
-                                
+
                                 .due-date-text {
                                     font-weight: 600;
                                     color: $dark-color;
                                     font-size: 0.85rem;
                                 }
-                                
+
                                 .due-time-text {
                                     color: #6c757d;
                                     font-size: 0.75rem;
@@ -621,7 +623,7 @@ textarea.form-control {
                             }
                         }
                     }
-                    
+
                     .status-badge {
                         .badge {
                             font-size: 0.75rem;
@@ -630,24 +632,24 @@ textarea.form-control {
                             font-weight: 500;
                             display: inline-flex;
                             align-items: center;
-                            
+
                             i {
                                 margin-right: 0.25rem;
                                 font-size: 0.8rem;
                             }
-                            
+
                             &.status-completed {
                                 background-color: #d4edda;
                                 color: #155724;
                                 border: 1px solid #c3e6cb;
                             }
-                            
+
                             &.status-pending {
                                 background-color: #e3f2fd;
                                 color: #1565c0;
                                 border: 1px solid #bbdefb;
                             }
-                            
+
                             &.status-overdue {
                                 background-color: #f8d7da;
                                 color: #721c24;
@@ -658,7 +660,7 @@ textarea.form-control {
                     }
                 }
             }
-            
+
             // Task actions - now properly separated and centered
             .task-actions {
                 display: flex;
@@ -669,7 +671,7 @@ textarea.form-control {
                 margin-top: 0.5rem;
                 padding-top: 0.75rem;
                 border-top: 1px solid #e9ecef;
-                
+
                 .btn {
                     padding: 0.375rem 0.5rem;
                     border-radius: 4px;
@@ -679,53 +681,53 @@ textarea.form-control {
                     min-width: 32px;
                     min-height: 32px;
                     line-height: 1;
-                    
+
                     i {
                         font-size: 0.875rem;
                         margin: 0;
                     }
-                    
+
                     &:hover {
                         transform: translateY(-1px);
                     }
-                    
+
                     &.btn-outline-success {
                         border-color: $success-color;
                         color: $success-color;
-                        
+
                         &:hover {
                             background-color: $success-color;
                             border-color: $success-color;
                             color: white;
                         }
                     }
-                    
+
                     &.btn-outline-warning {
                         border-color: $warning-color;
                         color: $warning-color;
-                        
+
                         &:hover {
                             background-color: $warning-color;
                             border-color: $warning-color;
                             color: #000;
                         }
                     }
-                    
+
                     &.btn-outline-primary {
                         border-color: $primary-color;
                         color: $primary-color;
-                        
+
                         &:hover {
                             background-color: $primary-color;
                             border-color: $primary-color;
                             color: white;
                         }
                     }
-                    
+
                     &.btn-outline-danger {
                         border-color: $danger-color;
                         color: $danger-color;
-                        
+
                         &:hover {
                             background-color: $danger-color;
                             border-color: $danger-color;
@@ -733,10 +735,10 @@ textarea.form-control {
                         }
                     }
                 }
-                
+
                 form {
                     display: inline;
-                    
+
                     .btn {
                         display: inline-flex;
                         align-items: center;
@@ -745,7 +747,7 @@ textarea.form-control {
                 }
             }
         }
-        
+
         &:hover .task-actions {
             opacity: 1;
         }
@@ -755,12 +757,12 @@ textarea.form-control {
 // Task sections styling
 .task-section {
     margin-bottom: 2rem;
-    
+
     .section-header {
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
         border-bottom: 2px solid #e9ecef;
-        
+
         .section-title {
             font-size: 1.25rem;
             font-weight: 600;
@@ -768,12 +770,12 @@ textarea.form-control {
             margin: 0;
             display: flex;
             align-items: center;
-            
+
             i {
                 margin-right: 0.5rem;
                 font-size: 1.1rem;
             }
-            
+
             .task-count {
                 margin-left: 0.5rem;
                 background-color: #6c757d;
@@ -785,19 +787,19 @@ textarea.form-control {
             }
         }
     }
-    
+
     &.overdue-section {
         .section-header .section-title .task-count {
             background-color: $danger-color;
         }
     }
-    
+
     &.pending-section {
         .section-header .section-title .task-count {
             background-color: $primary-color;
         }
     }
-    
+
     &.completed-section {
         .section-header .section-title .task-count {
             background-color: $success-color;
@@ -807,35 +809,38 @@ textarea.form-control {
 
 // Animation for overdue status
 @keyframes pulse-overdue {
-    0%, 100% { 
-        transform: scale(1); 
-        opacity: 1; 
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
-    50% { 
-        transform: scale(1.02); 
-        opacity: 0.9; 
+
+    50% {
+        transform: scale(1.02);
+        opacity: 0.9;
     }
 }
 
 // Home header improvements
 .home-header {
     margin-bottom: 2rem;
-    
+
     h1 {
         color: $dark-color;
         font-weight: 700;
         font-size: 2.25rem;
         margin-bottom: 0;
-        
+
         @media (max-width: 768px) {
             font-size: 1.75rem;
         }
     }
-    
+
     .btn-primary {
         padding: 0.5rem 1rem;
         font-weight: 500;
-        
+
         i {
             margin-right: 0.5rem;
         }
@@ -848,17 +853,17 @@ textarea.form-control {
         .task-item {
             .task-content {
                 padding: 1rem;
-                
+
                 .task-header {
                     flex-direction: column;
                     margin-bottom: 0.75rem;
-                    
+
                     .task-title-section {
                         margin-right: 0;
                         margin-bottom: 0.75rem;
                         width: 100%;
                     }
-                    
+
                     .task-meta-section {
                         align-items: flex-start;
                         width: 100%;
@@ -867,7 +872,7 @@ textarea.form-control {
                         min-width: auto;
                     }
                 }
-                
+
                 .task-actions {
                     opacity: 1; // Always visible on mobile
                     padding-top: 0.5rem;
@@ -876,7 +881,7 @@ textarea.form-control {
             }
         }
     }
-    
+
     .home-header {
         .d-flex {
             flex-direction: column;
@@ -892,6 +897,7 @@ textarea.form-control {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -936,19 +942,19 @@ textarea.form-control {
 
 .task-detail-header {
     margin-bottom: 2rem;
-    
+
     .back-navigation a {
         text-decoration: none;
-        
+
         i {
             margin-right: 0.5rem;
         }
     }
-    
+
     .task-actions-header {
         .btn {
             margin-left: 0.5rem;
-            
+
             i {
                 margin-right: 0.5rem;
             }
@@ -961,50 +967,50 @@ textarea.form-control {
         border: none;
         border-radius: $border-radius;
     }
-    
+
     .task-status-header {
         padding: 1.5rem 2rem;
         border-radius: $border-radius $border-radius 0 0;
-        
+
         &.completed {
             background: linear-gradient(135deg, $success-color, color.scale($success-color, $lightness: -10%));
             color: white;
         }
-        
+
         &.overdue {
             background: linear-gradient(135deg, $danger-color, color.scale($danger-color, $lightness: -10%));
             color: white;
         }
-        
+
         &.pending {
             background: linear-gradient(135deg, $primary-color, color.scale($primary-color, $lightness: -10%));
             color: white;
         }
-        
+
         .task-status-info {
             display: flex;
             align-items: center;
-            
+
             .status-icon {
                 margin-right: 1rem;
-                
+
                 i {
                     font-size: 2rem;
                 }
             }
-            
+
             .status-title {
                 font-size: 1.5rem;
                 font-weight: 600;
                 margin-bottom: 0.25rem;
             }
-            
+
             .status-subtitle {
                 font-size: 1rem;
                 opacity: 0.9;
             }
         }
-        
+
         .completion-actions {
             .btn {
                 i {
@@ -1013,11 +1019,11 @@ textarea.form-control {
             }
         }
     }
-    
+
     .card-body {
         padding: 2rem;
     }
-    
+
     .task-title {
         font-size: 2.5rem;
         font-weight: 700;
@@ -1026,23 +1032,23 @@ textarea.form-control {
         line-height: 1.2;
         // Removed the completed styling with line-through
     }
-    
+
     .task-description-section {
         margin-bottom: 2rem;
-        
+
         .section-heading {
             color: $dark-color;
             font-weight: 600;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            
+
             i {
                 margin-right: 0.5rem;
                 color: $primary-color;
             }
         }
-        
+
         .task-description {
             background-color: #f8f9fa;
             padding: 1.5rem;
@@ -1054,88 +1060,88 @@ textarea.form-control {
             word-wrap: break-word;
         }
     }
-    
+
     .task-details-grid {
         margin-top: 2rem;
-        
+
         .detail-item {
             margin-bottom: 1.5rem;
-            
+
             .detail-label {
                 font-weight: 600;
                 color: $dark-color;
                 margin-bottom: 0.5rem;
                 display: flex;
                 align-items: center;
-                
+
                 i {
                     margin-right: 0.5rem;
                     color: $primary-color;
                 }
             }
-            
+
             .detail-value {
                 font-size: 1rem;
                 color: #6c757d;
-                
+
                 &.overdue {
                     color: $danger-color;
                     font-weight: 600;
                 }
-                
+
                 .due-datetime {
                     display: flex;
                     flex-direction: column;
-                    
+
                     .due-date {
                         font-weight: 600;
                         color: $dark-color;
                         font-size: 1.1rem;
                     }
-                    
+
                     .due-time {
                         font-size: 0.9rem;
                         color: $dark-color;
                         margin-top: 0.25rem;
                     }
                 }
-                
+
                 .overdue-indicator {
                     color: $danger-color;
                     font-weight: 500;
                     margin-top: 0.5rem;
                     display: block;
-                    
+
                     i {
                         margin-right: 0.25rem;
                     }
                 }
-                
+
                 .no-due-date {
                     font-style: italic;
                     color: #adb5bd;
                 }
-                
+
                 .status-badge {
                     font-size: 0.9rem;
                     padding: 0.5rem 1rem;
-                    
+
                     i {
                         margin-right: 0.5rem;
                     }
-                    
+
                     &.completed {
                         background-color: #d4edda;
                         color: #155724;
                         border: 1px solid #c3e6cb;
                     }
-                    
+
                     &.pending {
                         background-color: #e3f2fd;
                         color: #1565c0;
                         border: 1px solid #bbdefb;
                     }
-                    
+
                     &.overdue {
                         background-color: #f8d7da;
                         color: #721c24;
@@ -1145,15 +1151,15 @@ textarea.form-control {
             }
         }
     }
-    
+
     .task-actions-footer {
         background-color: #f8f9fa;
         border-top: 1px solid #e9ecef;
         padding: 1.5rem 2rem;
-        
+
         .btn {
             margin-right: 0.5rem;
-            
+
             i {
                 margin-right: 0.5rem;
             }
@@ -1166,56 +1172,56 @@ textarea.form-control {
     min-width: 320px;
     max-height: 450px;
     overflow-y: auto;
-    
+
     .dropdown-header {
         font-weight: 600;
         color: $primary-color;
         background-color: #f8f9fa;
-        
+
         i {
             margin-right: 0.5rem;
         }
     }
-    
+
     .notification-item {
         padding: 0.75rem 1rem;
         border: none;
-        
+
         &:hover {
             background-color: #f8f9fa;
         }
-        
+
         .notification-content {
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
-            
+
             .notification-icon {
                 flex-shrink: 0;
                 margin-top: 0.125rem;
-                
+
                 i {
                     font-size: 1.1rem;
                 }
             }
-            
+
             .notification-text {
                 flex: 1;
                 min-width: 0;
-                
+
                 .notification-title {
                     font-weight: 500;
                     color: $dark-color;
                     font-size: 0.9rem;
                     line-height: 1.3;
                     margin-bottom: 0.25rem;
-                    
+
                     // Truncate long titles
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
-                
+
                 .notification-subtitle {
                     font-size: 0.8rem;
                     color: #6c757d;
@@ -1224,15 +1230,15 @@ textarea.form-control {
             }
         }
     }
-    
+
     .dropdown-item-text {
         padding: 1.5rem 1rem;
-        
+
         i {
             margin-right: 0.5rem;
         }
     }
-    
+
     // Logout item styling
     .dropdown-item:last-child {
         i {
@@ -1256,7 +1262,7 @@ textarea.form-control {
         color: white;
         position: relative;
         overflow: hidden;
-        
+
         &::before {
             content: '';
             position: absolute;
@@ -1268,61 +1274,61 @@ textarea.form-control {
             background-size: cover;
             background-position: bottom;
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
-            
+
             .hero-title {
                 font-size: 3.5rem;
                 font-weight: 700;
                 line-height: 1.2;
                 margin-bottom: 1.5rem;
-                
+
                 @media (max-width: 768px) {
                     font-size: 2.5rem;
                 }
             }
-            
+
             .hero-description {
                 font-size: 1.25rem;
                 line-height: 1.6;
                 margin-bottom: 2rem;
                 opacity: 0.9;
             }
-            
+
             .hero-actions {
                 margin-bottom: 3rem;
-                
+
                 .btn {
                     padding: 1rem 2rem;
                     font-weight: 600;
                     border-radius: 50px;
-                    
+
                     i {
                         margin-right: 0.5rem;
                     }
                 }
             }
-            
+
             .hero-stats {
                 display: flex;
                 gap: 2rem;
-                
+
                 @media (max-width: 768px) {
                     flex-direction: column;
                     gap: 1rem;
                 }
-                
+
                 .stat-item {
                     text-align: center;
-                    
+
                     strong {
                         display: block;
                         font-size: 1.5rem;
                         font-weight: 700;
                     }
-                    
+
                     span {
                         font-size: 0.9rem;
                         opacity: 0.8;
@@ -1330,11 +1336,11 @@ textarea.form-control {
                 }
             }
         }
-        
+
         .hero-image {
             position: relative;
             z-index: 2;
-            
+
             .task-preview-card {
                 background: white;
                 border-radius: 1rem;
@@ -1342,7 +1348,7 @@ textarea.form-control {
                 padding: 1.5rem;
                 max-width: 400px;
                 margin: 0 auto;
-                
+
                 .preview-header {
                     display: flex;
                     align-items: center;
@@ -1350,28 +1356,36 @@ textarea.form-control {
                     margin-bottom: 1rem;
                     padding-bottom: 1rem;
                     border-bottom: 1px solid #eee;
-                    
+
                     .preview-dots {
                         display: flex;
                         gap: 0.5rem;
-                        
+
                         .dot {
                             width: 12px;
                             height: 12px;
                             border-radius: 50%;
-                            
-                            &.red { background: #ff5f57; }
-                            &.yellow { background: #ffbd2e; }
-                            &.green { background: #28ca42; }
+
+                            &.red {
+                                background: #ff5f57;
+                            }
+
+                            &.yellow {
+                                background: #ffbd2e;
+                            }
+
+                            &.green {
+                                background: #28ca42;
+                            }
                         }
                     }
-                    
+
                     h6 {
                         margin: 0;
                         color: #333;
                     }
                 }
-                
+
                 .preview-tasks {
                     .preview-task {
                         display: flex;
@@ -1379,36 +1393,46 @@ textarea.form-control {
                         gap: 0.75rem;
                         padding: 0.75rem 0;
                         color: #333;
-                        
+
                         i {
                             font-size: 1.1rem;
                         }
-                        
+
                         &.completed {
-                            i { color: #28a745; }
-                            span { text-decoration: line-through; opacity: 0.6; }
+                            i {
+                                color: #28a745;
+                            }
+
+                            span {
+                                text-decoration: line-through;
+                                opacity: 0.6;
+                            }
                         }
-                        
+
                         &.pending {
-                            i { color: #6c757d; }
+                            i {
+                                color: #6c757d;
+                            }
                         }
-                        
+
                         &.overdue {
-                            i { color: #dc3545; }
+                            i {
+                                color: #dc3545;
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
+
     .features-section {
         background: #f8f9fa;
-        
+
         .feature-card {
             padding: 2rem 1rem;
             height: 100%;
-            
+
             .feature-icon {
                 width: 80px;
                 height: 80px;
@@ -1418,35 +1442,35 @@ textarea.form-control {
                 align-items: center;
                 justify-content: center;
                 margin: 0 auto 1rem;
-                
+
                 i {
                     font-size: 2rem;
                     color: white;
                 }
             }
-            
+
             h5 {
                 margin-bottom: 1rem;
                 color: #333;
             }
-            
+
             p {
                 color: #6c757d;
                 line-height: 1.6;
             }
         }
     }
-    
+
     .cta-section {
         background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
         color: white;
-        
+
         .cta-actions {
             .btn {
                 padding: 1rem 2rem;
                 font-weight: 600;
                 border-radius: 50px;
-                
+
                 i {
                     margin-right: 0.5rem;
                 }
@@ -1463,23 +1487,23 @@ textarea.form-control {
                 display: block;
                 width: 100%;
                 margin-bottom: 1rem;
-                
+
                 &:last-child {
                     margin-bottom: 0;
                 }
             }
         }
-        
+
         .features-section .feature-card {
             margin-bottom: 2rem;
         }
-        
+
         .cta-section .cta-actions {
             .btn {
                 display: block;
                 width: 100%;
                 margin-bottom: 1rem;
-                
+
                 &:last-child {
                     margin-bottom: 0;
                 }
@@ -1491,7 +1515,7 @@ textarea.form-control {
 // Profile page styles
 .profile-container {
     padding: 2rem 0;
-    
+
     .profile-header {
         background: linear-gradient(135deg, $primary-color 0%, color.scale($primary-color, $lightness: 20%) 100%);
         border-radius: 1rem;
@@ -1501,15 +1525,15 @@ textarea.form-control {
         display: flex;
         align-items: center;
         gap: 2rem;
-        
+
         @media (max-width: 768px) {
             flex-direction: column;
             text-align: center;
         }
-        
+
         .profile-avatar {
             position: relative;
-            
+
             .avatar-overlay {
                 position: absolute;
                 bottom: 0;
@@ -1522,44 +1546,44 @@ textarea.form-control {
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                
+
                 i {
                     color: white;
                     font-size: 0.9rem;
                 }
             }
         }
-        
+
         .profile-info {
             flex: 1;
-            
+
             .profile-name {
                 margin-bottom: 0.5rem;
                 font-weight: 700;
             }
-            
+
             .profile-subtitle {
                 opacity: 0.9;
                 margin-bottom: 1.5rem;
             }
-            
+
             .profile-stats {
                 display: flex;
                 gap: 2rem;
-                
+
                 @media (max-width: 576px) {
                     justify-content: center;
                 }
-                
+
                 .stat-item {
                     text-align: center;
-                    
+
                     .stat-number {
                         display: block;
                         font-size: 2rem;
                         font-weight: 700;
                     }
-                    
+
                     .stat-label {
                         font-size: 0.9rem;
                         opacity: 0.8;
@@ -1568,47 +1592,47 @@ textarea.form-control {
             }
         }
     }
-    
+
     .profile-nav {
         margin-bottom: 2rem;
-        
+
         .nav-tabs {
             border: none;
-            
+
             .nav-link {
                 border: none;
                 color: #6c757d;
                 padding: 1rem 1.5rem;
                 border-radius: 0.5rem;
                 margin-right: 0.5rem;
-                
+
                 &.active {
                     background: $primary-color;
                     color: white;
                 }
-                
+
                 i {
                     margin-right: 0.5rem;
                 }
             }
         }
     }
-    
+
     .profile-section {
         background: white;
         border-radius: 1rem;
         padding: 2rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        
+
         .section-title {
             margin-bottom: 1.5rem;
             color: #333;
-            
+
             i {
                 margin-right: 0.5rem;
             }
         }
-        
+
         .activity-card {
             background: #f8f9fa;
             border-radius: 0.75rem;
@@ -1617,7 +1641,7 @@ textarea.form-control {
             display: flex;
             align-items: center;
             gap: 1rem;
-            
+
             .activity-icon {
                 width: 50px;
                 height: 50px;
@@ -1626,18 +1650,18 @@ textarea.form-control {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                
+
                 i {
                     font-size: 1.5rem;
                 }
             }
-            
+
             .activity-content {
                 h6 {
                     margin-bottom: 0.5rem;
                     color: #333;
                 }
-                
+
                 .activity-number {
                     font-size: 1.5rem;
                     font-weight: 700;
@@ -1646,15 +1670,15 @@ textarea.form-control {
                 }
             }
         }
-        
+
         .recent-activity {
             margin-top: 2rem;
-            
+
             h5 {
                 margin-bottom: 1rem;
                 color: #333;
             }
-            
+
             .activity-list {
                 .activity-item {
                     display: flex;
@@ -1662,31 +1686,31 @@ textarea.form-control {
                     gap: 1rem;
                     padding: 1rem 0;
                     border-bottom: 1px solid #eee;
-                    
+
                     &:last-child {
                         border-bottom: none;
                     }
-                    
+
                     .activity-indicator {
                         width: 12px;
                         height: 12px;
                         border-radius: 50%;
-                        
+
                         &.completed {
                             background: $success-color;
                         }
-                        
+
                         &.pending {
                             background: $warning-color;
                         }
                     }
-                    
+
                     .activity-details {
                         h6 {
                             margin-bottom: 0.25rem;
                             color: #333;
                         }
-                        
+
                         p {
                             margin: 0;
                             font-size: 0.875rem;
@@ -1695,66 +1719,53 @@ textarea.form-control {
                 }
             }
         }
-        
+
         .empty-state {
             text-align: center;
             padding: 3rem 1rem;
             color: #6c757d;
-            
+
             i {
                 font-size: 3rem;
                 margin-bottom: 1rem;
                 display: block;
             }
-            
+
             p {
                 margin-bottom: 1.5rem;
             }
         }
-        
+
         .profile-form,
         .security-form {
             .form-actions {
                 margin-top: 2rem;
-                
+
                 .btn {
                     margin-right: 1rem;
-                    
+
                     i {
                         margin-right: 0.5rem;
                     }
                 }
             }
         }
-        
+
         .danger-zone {
             background: #fff5f5;
             border: 1px solid #fed7d7;
             border-radius: 0.5rem;
             padding: 1.5rem;
             margin-top: 2rem;
-            
+
             h5 {
                 margin-bottom: 0.5rem;
             }
-            
+
             p {
                 margin-bottom: 1rem;
             }
         }
-    }
-}
-
-// Register
-.btn-outline-effect {
-    background-color: transparent;
-    border: 2px solid #198754;
-    color: #198754;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-        background-color: #198754;
-        color: white;
     }
 }
 
@@ -1763,20 +1774,234 @@ textarea.form-control {
     .profile-container {
         .profile-nav .nav-tabs {
             flex-direction: column;
-            
+
             .nav-link {
                 margin-right: 0;
                 margin-bottom: 0.5rem;
             }
         }
-        
+
         .profile-section {
             padding: 1rem;
         }
-        
+
         .profile-header .profile-stats {
             flex-direction: column;
             gap: 1rem;
+        }
+    }
+}
+
+// Task selection styling
+.task-selection {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+
+    .form-check {
+        margin: 0;
+
+        .form-check-input {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin: 0;
+            cursor: pointer;
+            border: 2px solid #dee2e6;
+            border-radius: 0.25rem;
+
+            &:checked {
+                background-color: $primary-color;
+                border-color: $primary-color;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+            }
+
+            &:indeterminate {
+                background-color: $secondary-color;
+                border-color: $secondary-color;
+            }
+        }
+    }
+}
+
+// Update task item layout to accommodate selection
+.task-list {
+    .task-item {
+        display: flex;
+        align-items: center; 
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+
+
+        .task-content {
+            flex: 1;
+            padding: 1.25rem;
+        }
+    }
+}
+
+// Bulk actions bar styling
+.bulk-actions-bar {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: $border-radius;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: $box-shadow;
+
+    .selected-count {
+        font-weight: 600;
+        color: $dark-color;
+        font-size: 1rem;
+
+        #selectedCategory {
+            color: $primary-color;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+    }
+
+    .bulk-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+
+            i {
+                font-size: 0.875rem;
+            }
+        }
+    }
+}
+
+// Section controls styling
+.section-controls {
+    .form-check {
+        margin: 0;
+
+        .form-check-input {
+            width: 1.125rem;
+            height: 1.125rem;
+            margin-top: 0.125rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            border: 2px solid #dee2e6;
+
+            &:checked {
+                background-color: $primary-color;
+                border-color: $primary-color;
+            }
+
+            &:indeterminate {
+                background-color: $warning-color;
+                border-color: $warning-color;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+            }
+        }
+
+        .form-check-label {
+            font-size: 0.875rem;
+            color: $secondary-color;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+// Responsive adjustments for selection
+@media (max-width: 768px) {
+    .bulk-actions-bar {
+        padding: 1rem;
+
+        .d-flex {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .bulk-actions {
+            justify-content: center;
+        }
+    }
+
+    .section-header .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .task-selection {
+        margin-right: 1rem;
+        display: flex;
+        align-items: center; 
+    }
+
+    .task-list .task-item .task-content {
+        padding: 1rem;
+    }
+}
+
+// Selection hover effects
+.task-item {
+    &:hover {
+        .task-selection .form-check-input {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 0.1rem rgba($primary-color, 0.15);
+        }
+    }
+
+    &.selected {
+        background-color: rgba($primary-color, 0.05);
+        border-color: $primary-color;
+    }
+}
+
+// Category-specific bulk action button styling
+.bulk-actions {
+    .btn-outline-success {
+        &:hover {
+            background-color: $success-color;
+            border-color: $success-color;
+            color: white;
+        }
+    }
+
+    .btn-outline-warning {
+        &:hover {
+            background-color: $warning-color;
+            border-color: $warning-color;
+            color: $dark-color;
+        }
+    }
+
+    .btn-outline-danger {
+        &:hover {
+            background-color: $danger-color;
+            border-color: $danger-color;
+            color: white;
+        }
+    }
+
+    .btn-outline-secondary {
+        &:hover {
+            background-color: $secondary-color;
+            border-color: $secondary-color;
+            color: white;
         }
     }
 }

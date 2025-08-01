@@ -8,20 +8,6 @@
                 </h4>
             </div>
             <div class="card-body">
-                {{#if error}}
-                    <div class="alert alert-danger" role="alert">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        Due date cannot be in the past.
-                    </div>
-                {{/if}}
-
-                {{#if success}}
-                    <div class="alert alert-success" role="alert">
-                        <i class="bi bi-check-circle"></i>
-                        Task updated successfully! See your tasks <a href="/task">here</a>.
-                    </div>
-                {{/if}}
-                
                 <form action="/task/{{task.id}}?_method=PUT" method="POST">
                     <div class="form-group">
                         <label for="title" class="form-label">Task</label>
