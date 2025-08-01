@@ -47,10 +47,7 @@ class AuthController {
 
     // [GET] /register
     showRegister(req, res) {
-        res.render('auth/register', { 
-            title: 'Register',
-            error: req.query.error 
-        });
+        res.render('auth/register');
     }
 
     // [POST] /register
@@ -82,11 +79,9 @@ class AuthController {
             }
 
             // Create new user
-            const userId = await User.create({ username, password });
+            await User.create({ username, password });
 
-            res.render('auth/register', { 
-                success: true,
-            });
+            return res.redirect('/auth/register?success=Registration successful, please log in');
         } catch (error) {
             console.error('Registration error:', error);
             next();

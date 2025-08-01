@@ -62,10 +62,6 @@
         border-color: $primary-color;
         box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
     }
-    
-    &:invalid {
-        border-color: $danger-color;
-    }
 }
 
 textarea.form-control {
@@ -1746,6 +1742,19 @@ textarea.form-control {
                 margin-bottom: 1rem;
             }
         }
+    }
+}
+
+// Register
+.btn-outline-effect {
+    background-color: transparent;
+    border: 2px solid #198754;
+    color: #198754;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: #198754;
+        color: white;
     }
 }
 

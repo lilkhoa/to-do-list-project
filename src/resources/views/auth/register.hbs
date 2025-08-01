@@ -9,21 +9,6 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    {{#if error}}
-                        <div class="alert alert-danger" role="alert">
-                            <i class="bi bi-exclamation-triangle"></i>
-                            {{error}}
-                        </div>
-                    {{/if}}
-
-                    {{#if success}}
-                        <div class="alert alert-success" role="alert">
-                            <i class="bi bi-check-circle"></i>
-                            Registation successful, please 
-                            <a href="/auth/login">log in</a>.
-                        </div>
-                    {{/if}}
-
                     <form action="/auth/register" method="POST" id="registerForm">
                         <div class="form-group mb-3">
                             <label for="username" class="form-label">Username</label>
@@ -50,7 +35,7 @@
                         </div>
                         
                         <div class="d-grid mb-3">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success btn-outline-effect">
                                 <i class="bi bi-person-plus"></i> 
                                 <span>Create Account</span>
                             </button>
@@ -72,7 +57,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registerForm');
     const usernameInput = document.getElementById('username');
-    
+    const urlParams = new URLSearchParams(window.location.search);
+    const registerSuccess = urlParams.get('success');
+    const registerError = urlParams.get('error');
+
     // Username validation
     usernameInput.addEventListener('input', function() {
         const username = this.value;
@@ -87,5 +75,27 @@ document.addEventListener('DOMContentLoaded', function() {
             usernameError.textContent = '';
         }
     });
+
+    if (registerSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: registerSuccess,
+            confirmButtonText: 'Login Now',
+            confirmButtonColor: '#198754',
+        }).then(() => {
+            window.location.href = '/auth/login';
+        });
+    } else if (registerError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: registerError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545',
+        }).then(() => {
+            window.location.href = '/auth/register';
+        });
+    }
 });
 </script>
