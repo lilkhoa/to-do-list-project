@@ -1,0 +1,109 @@
+<div class="row justify-content-center task-create-form">
+   <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+         <div class="card-header">
+            <h4 class="mb-0">
+               <i class="bi bi-plus-circle"></i>
+               Create New Task
+            </h4>
+         </div>
+         <div class="card-body">
+            {{#if error}}
+               <div class="alert alert-danger" role="alert">
+                  <i class="bi bi-exclamation-triangle"></i>
+                  Due date cannot be in the past.
+               </div>
+            {{/if}}
+            
+            <form action="/task" method="POST">
+               <div class="form-group mb-3">
+                  <label for="title" class="form-label">Task Title <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Enter task title..." required>
+               </div>
+               
+               <div class="form-group mb-3">
+                  <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter task description..." required></textarea>
+               </div>
+               
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="form-group mb-3">
+                        <label for="dueDate" class="form-label">Due Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="dueDate" name="dueDate" required>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group mb-3">
+                        <label for="dueTime" class="form-label">Due Time <span class="text-danger">*</span></label>
+                        <input type="time" class="form-control" id="dueTime" name="dueTime" required>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="d-grid gap-2 d-md-flex justify-content-md-end btn-group">
+                  <a href="/task" class="btn btn-outline-secondary me-md-2">
+                     <i class="bi bi-arrow-left"></i>
+                     <span>Cancel</span>
+                  </a>
+                  <button type="submit" class="btn btn-outline-primary">
+                     <i class="bi bi-check-circle"></i>
+                     <span>Create Task</span>
+                  </button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   const dueDateInput = document.getElementById('dueDate');
+   const dueTimeInput = document.getElementById('dueTime');
+   
+   // Set minimum date to today (prevents past dates)
+   const today = new Date().toISOString().split('T')[0];
+   dueDateInput.min = today;
+   dueDateInput.value = today; // Default to today
+   
+   // Set default time to current time + 1 hour
+   const now = new Date();
+   now.setHours(now.getHours() + 1);
+   dueTimeInput.value = now.toTimeString().slice(0, 5);
+   
+   // Auto-resize textarea
+   const textarea = document.getElementById('description');
+   function autoResize() {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.max(textarea.scrollHeight, 100) + 'px';
+   }
+   
+   textarea.addEventListener('input', autoResize);
+   autoResize();
+   
+   // Check for success
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+
+    if (success) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Task created successfully!',
+            showCancelButton: true,
+            confirmButtonText: '<i class="bi bi-list-task"></i> View my To-do List',
+            cancelButtonText: '<i class="bi bi-plus-circle"></i> Create another',
+            confirmButtonColor: '#198754',
+            cancelButtonColor: '#6c757d',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/task';
+            } else {
+                window.history.replaceState({}, document.title, '/task/create');
+            }
+        });
+    }
+});
+</script>

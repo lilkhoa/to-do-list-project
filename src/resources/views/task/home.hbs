@@ -1,0 +1,382 @@
+<div class="home-header">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>My To-Do List</h1>
+                <div class="d-flex gap-2">
+                    <a href="/task/deleted/trash" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                        <i class="bi bi-trash"></i>
+                        <span class="ms-1">Trash</span>
+                        {{#if (hasDeletedTasks tasks)}}
+                            <span class="badge bg-danger ms-2">{{countDeletedTasks tasks}}</span>
+                        {{/if}}
+                    </a>
+
+                    <a href="/task/create" class="btn btn-outline-primary d-inline-flex align-items-center">
+                        <i class="bi bi-plus-circle"></i>
+                        <span class="ms-1">Add Task</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if tasks}}
+    <!-- Overdue Tasks Section -->
+    {{#if (hasOverdueTasks tasks)}}
+    <div class="task-section overdue-section">
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="bi bi-exclamation-triangle text-danger"></i>
+                Overdue Tasks
+                <span class="task-count">{{countOverdueTasks tasks}}</span>
+            </h3>
+        </div>
+        <div class="task-list">
+            {{#each tasks}}
+                {{#if (and (not completed) (isOverdue due_datetime))}}
+                <div class="task-item overdue clickable-task" data-task-id="{{id}}">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <div class="task-title-section">
+                                <div class="task-status-icon">
+                                    <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                                </div>
+                                <div class="task-info">
+                                    <h5 class="task-title">{{title}}</h5>
+                                    {{#if description}}
+                                    <p class="task-description">{{truncate description 60}}</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="task-meta-section">
+                                <!-- Due Date/Time Section -->
+                                {{#if due_datetime}}
+                                <div class="due-date-info overdue">
+                                    <div class="due-date-badge">
+                                        <i class="bi bi-clock"></i>
+                                        <div class="due-details">
+                                            <span class="due-date-text">{{formatDate due_datetime}}</span>
+                                            <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+
+                                <!-- Status Badge -->
+                                <div class="status-badge">
+                                    <span class="badge status-overdue">
+                                        <i class="bi bi-exclamation-triangle"></i> Overdue
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Actions -->
+                        <div class="task-actions" onclick="event.stopPropagation();">
+                            <form method="POST" action="/task/{{id}}/complete?_method=PUT" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-success" title="Mark as Complete">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm btn-outline-primary" title="Edit" onclick="window.location.href='/task/{{id}}/edit'">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-task-btn" title="Delete" data-task-id="{{id}}" data-task-title="{{title}}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <!-- Pending Tasks Section -->
+    {{#if (hasPendingTasks tasks)}}
+    <div class="task-section pending-section">
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="bi bi-hourglass-split text-primary"></i>
+                Pending Tasks
+                <span class="task-count">{{countPendingTasks tasks}}</span>
+            </h3>
+        </div>
+        <div class="task-list">
+            {{#each tasks}}
+                {{#if (and (not completed) (not (isOverdue due_datetime)))}}
+                <div class="task-item pending clickable-task" data-task-id="{{id}}">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <div class="task-title-section">
+                                <div class="task-status-icon">
+                                    <i class="bi bi-circle"></i>
+                                </div>
+                                <div class="task-info">
+                                    <h5 class="task-title">{{title}}</h5>
+                                    {{#if description}}
+                                    <p class="task-description">{{truncate description 60}}</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="task-meta-section">
+                                <!-- Due Date/Time Section -->
+                                {{#if due_datetime}}
+                                <div class="due-date-info">
+                                    <div class="due-date-badge">
+                                        <i class="bi bi-clock"></i>
+                                        <div class="due-details">
+                                            <span class="due-date-text">{{formatDate due_datetime}}</span>
+                                            <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{else}}
+                                <div class="due-date-info no-due">
+                                    <i class="bi bi-calendar-x"></i>
+                                    <span>No due date</span>
+                                </div>
+                                {{/if}}
+
+                                <!-- Status Badge -->
+                                <div class="status-badge">
+                                    <span class="badge status-pending">
+                                        <i class="bi bi-hourglass-split"></i> Pending
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Actions -->
+                        <div class="task-actions" onclick="event.stopPropagation();">
+                            <form method="POST" action="/task/{{id}}/complete?_method=PUT" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-success" title="Mark as Complete">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm btn-outline-primary" title="Edit" onclick="window.location.href='/task/{{id}}/edit'">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-task-btn" title="Delete" data-task-id="{{id}}" data-task-title="{{title}}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <!-- Completed Tasks Section -->
+    {{#if (hasCompletedTasks tasks)}}
+    <div class="task-section completed-section">
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="bi bi-check-circle text-success"></i>
+                Completed Tasks
+                <span class="task-count">{{countCompletedTasks tasks}}</span>
+            </h3>
+        </div>
+        <div class="task-list">
+            {{#each tasks}}
+                {{#if completed}}
+                <div class="task-item completed clickable-task" data-task-id="{{id}}">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <div class="task-title-section">
+                                <div class="task-status-icon">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </div>
+                                <div class="task-info">
+                                    <h5 class="task-title">{{title}}</h5>
+                                    {{#if description}}
+                                    <p class="task-description">{{truncate description 60}}</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="task-meta-section">
+                                <!-- Due Date/Time Section -->
+                                {{#if due_datetime}}
+                                <div class="due-date-info">
+                                    <div class="due-date-badge">
+                                        <i class="bi bi-clock"></i>
+                                        <div class="due-details">
+                                            <span class="due-date-text">{{formatDate due_datetime}}</span>
+                                            <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{else}}
+                                <div class="due-date-info no-due">
+                                    <i class="bi bi-calendar-x"></i>
+                                    <span>No due date</span>
+                                </div>
+                                {{/if}}
+
+                                <!-- Status Badge -->
+                                <div class="status-badge">
+                                    <span class="badge status-completed">
+                                        <i class="bi bi-check-circle"></i> Completed
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Actions -->
+                        <div class="task-actions" onclick="event.stopPropagation();">
+                            <form method="POST" action="/task/{{id}}/incomplete?_method=PUT" style="display: inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-warning" title="Mark as Incomplete">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm btn-outline-primary" title="Edit" onclick="window.location.href='/task/{{id}}/edit'">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-task-btn" title="Delete" data-task-id="{{id}}" data-task-title="{{title}}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+{{else}}
+<div class="empty-state">
+    <div class="empty-icon">
+        <i class="bi bi-clipboard-x"></i>
+    </div>
+    <h4>No tasks found</h4>
+    <p>Get started by creating your first task!</p>
+    <a href="/task/create" class="btn btn-outline-primary">
+        <i class="bi bi-plus-circle"></i> 
+        <span>Create Task</span>
+    </a>
+</div>
+{{/if}}
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    Confirm Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this task?</p>
+                <div class="task-preview">
+                    <strong id="taskTitlePreview"></strong>
+                </div>
+                <p class="text-muted mt-2"><small>You can restore it from the trash later.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="confirmDeleteBtn">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Task</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Add click functionality to task items and delete confirmation
+document.addEventListener('DOMContentLoaded', function() {
+    const clickableTasks = document.querySelectorAll('.clickable-task');
+    
+    clickableTasks.forEach(task => {
+        task.addEventListener('click', function() {
+            const taskId = this.getAttribute('data-task-id');
+            if (taskId) {
+                window.location.href = `/task/${taskId}`;
+            }
+        });
+        
+        // Add hover effect
+        task.style.cursor = 'pointer';
+    });
+
+    // Delete functionality
+    const deleteButtons = document.querySelectorAll('.delete-task-btn');
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    const taskTitlePreview = document.getElementById('taskTitlePreview');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const urlParams = new URLSearchParams(window.location.search);
+    const deletedError = urlParams.get('deleted-error');
+    const deletedSuccess = urlParams.get('deleted-success');
+    
+    let taskToDelete = null;
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent task click
+            
+            const taskId = this.getAttribute('data-task-id');
+            const taskTitle = this.getAttribute('data-task-title');
+            
+            taskToDelete = taskId;
+            taskTitlePreview.textContent = taskTitle;
+            
+            deleteModal.show();
+        });
+    });
+
+    // Confirm delete
+    confirmDeleteBtn.addEventListener('click', function() {
+        if (taskToDelete) {
+            // Create a form and submit it for deletion
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/task/${taskToDelete}/delete?_method=DELETE`;
+            form.style.display = 'none';
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+
+    // Check for success or error messages
+    if (deletedSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Task deleted!',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task';
+        });
+    } else if (deletedError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error Deleting Task',
+            text: deletedError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
+    // Reset modal when closed
+    document.getElementById('deleteConfirmModal').addEventListener('hidden.bs.modal', function () {
+        taskToDelete = null;
+        taskTitlePreview.textContent = '';
+    });
+});
+</script>

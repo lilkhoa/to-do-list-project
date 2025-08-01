@@ -1,0 +1,289 @@
+<div class="trash-header">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="header-info">
+                    <h1>
+                        <i class="bi bi-trash"></i>
+                        Trash
+                    </h1>
+                    <p class="text-muted">Tasks in trash will be automatically deleted after 30 days</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/task" class="btn btn-outline-primary me-2">
+                        <i class="bi bi-arrow-left"></i>
+                        <span>Back</span>
+                    </a>
+                    {{#if (hasDeletedTasks deletedTasks)}}
+                    <button class="btn btn-outline-danger" id="emptyTrashBtn">
+                        <i class="bi bi-trash"></i>
+                        <span>Empty Trash</span>
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="deleted-section-wrapper task-section">
+    <div class="section-header">
+        <h3 class="section-title">
+            <i class="bi bi-trash text-muted"></i>
+            Deleted Tasks
+            <span class="task-count">{{countDeletedTasks deletedTasks}}</span>
+        </h3>
+    </div>
+    {{#if (hasDeletedTasks deletedTasks)}}
+        <div class="deleted-section">
+            <div class="task-list">
+                {{#each deletedTasks}}
+                {{#if deleted_at}}
+                <div class="task-item deleted">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <div class="task-title-section">
+                                <div class="task-status-icon">
+                                    <i class="bi bi-trash text-muted"></i>
+                                </div>
+                                <div class="task-info">
+                                    <h5 class="task-title text-muted">{{title}}</h5>
+                                    {{#if description}}
+                                    <p class="task-description text-muted">{{truncate description 60}}</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="task-meta-section">
+                                <!-- Due Date/Time -->
+                                {{#if due_datetime}}
+                                <div class="due-date-info deleted">
+                                    <div class="due-date-badge">
+                                        <i class="bi bi-clock"></i>
+                                        <div class="due-details">
+                                            <span class="due-date-text">{{formatDate due_datetime}}</span>
+                                            <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        <!-- Task Actions -->
+                        <div class="task-actions">
+                            <form action="/task/deleted/{{id}}/restore?_method=PUT" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-success" title="Restore">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    <span class="ms-1">Restore</span>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm btn-outline-danger permanent-delete-task-btn" title="Delete Permanent"
+                                data-task-id="{{id}}" data-task-title="{{title}}">
+                                <i class="bi bi-trash"></i>
+                                <span class="ms-1">Delete Permanent</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <h4>Trash is empty</h4>
+            <p>No deleted tasks found.</p>
+        </div>
+    {{/if}}
+</div>
+
+<!-- Permanent Delete Confirmation Modal -->
+<div class="modal fade" id="permanentDeleteConfirmModal" tabindex="-1"
+    aria-labelledby="permanentDeleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="permanentDeleteConfirmModalLabel">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    Delete Permanent
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>This action cannot be undone!</strong></p>
+                <p>Are you sure you want to permanently delete this task?</p>
+                <div class="task-preview">
+                    <strong id="permanentDeleteTaskTitlePreview"></strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="confirmPermanentDeleteBtn">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Permanent</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Empty Trash Confirmation Modal -->
+<div class="modal fade" id="emptyTrashConfirmModal" tabindex="-1" aria-labelledby="emptyTrashConfirmModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emptyTrashConfirmModalLabel">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    Empty Trash
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>This action cannot be undone!</strong></p>
+                <p>Are you sure you want to permanently delete all tasks in trash?</p>
+                <p class="text-muted">{{countDeletedTasks deletedTasks}} tasks will be permanently deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="confirmEmptyTrashBtn">
+                    <i class="bi bi-trash"></i>
+                    <span>Empty Trash</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Restore success message
+        const urlParams = new URLSearchParams(window.location.search);
+        const restoredSuccess = urlParams.get("restored-success");
+        if (restoredSuccess) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'The task has been successfully restored.',
+                confirmButtonText: 'Done',
+                confirmButtonColor: '#198754',
+            }).then(() => {
+                window.location.href = '/task/deleted/trash';
+            });
+        }
+
+        // Permanent delete functionality
+        const permanentDeleteButtons = document.querySelectorAll(".permanent-delete-task-btn");
+        const permanentDeleteModal = new bootstrap.Modal(document.getElementById("permanentDeleteConfirmModal"));
+        const permanentDeleteTaskTitlePreview = document.getElementById("permanentDeleteTaskTitlePreview");
+        const confirmPermanentDeleteBtn = document.getElementById("confirmPermanentDeleteBtn");
+        const deletedError = urlParams.get("deleted-error");
+        const deletedSuccess = urlParams.get("deleted-success");
+
+        let taskToPermanentDelete = null;
+
+        permanentDeleteButtons.forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.stopPropagation();
+
+                const taskId = this.getAttribute("data-task-id");
+                const taskTitle = this.getAttribute("data-task-title");
+
+                taskToPermanentDelete = taskId;
+                permanentDeleteTaskTitlePreview.textContent = taskTitle;
+
+                permanentDeleteModal.show();
+            });
+        });
+
+        confirmPermanentDeleteBtn.addEventListener("click", function () {
+            if (taskToPermanentDelete) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/task/deleted/${taskToPermanentDelete}/delete?_method=DELETE`;
+                form.style.display = "none";
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+
+        if (deletedSuccess) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'The task has been permanently deleted.',
+                confirmButtonText: 'Done',
+                confirmButtonColor: '#198754',
+            }).then(() => {
+                window.location.href = '/task/deleted/trash';
+            });
+        } else if (deletedError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: deleteError,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#dc3545',
+            });
+        }
+
+        // Empty trash functionality
+        const emptyTrashBtn = document.getElementById("emptyTrashBtn");
+        const emptyTrashModal = new bootstrap.Modal(document.getElementById("emptyTrashConfirmModal"));
+        const confirmEmptyTrashBtn = document.getElementById("confirmEmptyTrashBtn");
+        const emptyTrashError = urlParams.get("empty-trash-error");
+        const emptyTrashSuccess = urlParams.get("empty-trash-success");
+
+        if (emptyTrashBtn) {
+            emptyTrashBtn.addEventListener("click", function () {
+                emptyTrashModal.show();
+            });
+        }
+
+        confirmEmptyTrashBtn.addEventListener("click", function () {
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/task/deleted/empty-trash?_method=DELETE";
+            form.style.display = "none";
+            document.body.appendChild(form);
+            form.submit();
+        });
+
+        if (emptyTrashSuccess) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'All tasks in trash have been permanently deleted.',
+                confirmButtonText: 'Done',
+                confirmButtonColor: '#198754',
+            }).then(() => {
+                window.location.href = '/task/deleted/trash';
+            });
+        } else if (emptyTrashError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: emptyTrashError,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#dc3545',
+            });
+        }
+
+        // Reset modals when closed
+        document.getElementById("restoreConfirmModal").addEventListener("hidden.bs.modal", function () {
+            taskToRestore = null;
+            restoreTaskTitlePreview.textContent = "";
+        });
+
+        document.getElementById("permanentDeleteConfirmModal").addEventListener("hidden.bs.modal", function () {
+            taskToPermanentDelete = null;
+            permanentDeleteTaskTitlePreview.textContent = "";
+        });
+    });
+</script>

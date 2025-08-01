@@ -1,0 +1,131 @@
+<div class="row justify-content-center task-create-form">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square"></i>
+                    Edit Task
+                </h4>
+            </div>
+            <div class="card-body">
+                {{#if error}}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Due date cannot be in the past.
+                    </div>
+                {{/if}}
+
+                {{#if success}}
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-circle"></i>
+                        Task updated successfully! See your tasks <a href="/task">here</a>.
+                    </div>
+                {{/if}}
+                
+                <form action="/task/{{task.id}}?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <label for="title" class="form-label">Task</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter task title..." value="{{task.title}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter task description...">{{task.description}}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="dueDate" class="form-label">Due Date</label>
+                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="{{formatDateForInput task.due_datetime}}">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="dueTime" class="form-label">Due Time</label>
+                                <input type="time" class="form-control" id="dueTime" name="dueTime" value="{{formatTimeForInput task.due_datetime}}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Current Status Display -->
+                    <div class="form-group">
+                        <label class="form-label">Current Status</label>
+                        <div class="current-status">
+                            <span class="badge status-badge {{getTaskStatusClass task}}">
+                                {{#if task.completed}}
+                                    <i class="bi bi-check-circle"></i> Completed
+                                {{else}}
+                                    {{#if (isOverdue task.due_datetime)}}
+                                        <i class="bi bi-exclamation-triangle"></i> Overdue
+                                    {{else}}
+                                        <i class="bi bi-hourglass-split"></i> Pending
+                                    {{/if}}
+                                {{/if}}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end btn-group">
+                        <a href="/task" class="btn btn-outline-secondary me-md-2">
+                            <i class="bi bi-arrow-left"></i>
+                            <span>Cancel</span>
+                        </a>
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Update Task</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dueDateInput = document.getElementById('dueDate');
+    const dueTimeInput = document.getElementById('dueTime');
+    
+    const today = new Date().toISOString().split('T')[0];
+    dueDateInput.min = today;
+    dueDateInput.value = today; 
+    
+    const now = new Date();
+    now.setHours(now.getHours() + 1);
+    dueTimeInput.value = now.toTimeString().slice(0, 5);
+
+    // Auto-resize textarea for description
+    const textarea = document.getElementById('description');
+    function autoResize() {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(textarea.scrollHeight, 100) + 'px';
+    }
+
+    textarea.addEventListener('input', autoResize);
+    autoResize();
+
+    // Check for success
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const taskId = urlParams.get('taskId');
+
+    if (success) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Task updated successfully!',
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754',
+            cancelButtonColor: '#6c757d',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/task';
+            } else {
+                window.history.replaceState({}, document.title, `/task/${taskId}/edit`);
+            }
+        });
+    }
+});
+</script>

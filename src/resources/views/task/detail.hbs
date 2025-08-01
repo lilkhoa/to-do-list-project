@@ -1,0 +1,172 @@
+<div class="task-detail-container">
+    <!-- Header with navigation -->
+    <div class="task-detail-header">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="back-navigation">
+                        <a href="/task" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i>
+                            Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main task detail card -->
+    <div class="task-detail-card">
+        <div class="card shadow">
+            <!-- Task header with status -->
+            <div class="card-header task-status-header {{getTaskStatusClass task}}">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="task-status-info">
+                            <div class="status-icon">
+                                {{#if task.completed}}
+                                    <i class="bi bi-check-circle-fill"></i>
+                                {{else}}
+                                    {{#if (isOverdue task.due_datetime)}}
+                                        <i class="bi bi-exclamation-circle-fill"></i>
+                                    {{else}}
+                                        <i class="bi bi-clock"></i>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                            <div class="status-text">
+                                <h4 class="status-title">
+                                    {{#if task.completed}}
+                                        Task Completed
+                                    {{else}}
+                                        {{#if (isOverdue task.due_datetime)}}
+                                            Task Overdue
+                                        {{else}}
+                                            Task Pending
+                                        {{/if}}
+                                    {{/if}}
+                                </h4>
+                                <span class="status-subtitle">
+                                    {{#if task.completed}}
+                                        Completed on {{formatDateTime task.updated_at}}
+                                    {{else}}
+                                        {{#if task.due_datetime}}
+                                            Due {{formatDateTime task.due_datetime}}
+                                        {{else}}
+                                            No due date set
+                                        {{/if}}
+                                    {{/if}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task content -->
+            <div class="card-body">
+                <!-- Task title -->
+                <div class="task-title-section">
+                    <h1 class="task-title">
+                        {{task.title}}
+                    </h1>
+                </div>
+
+                <!-- Task description -->
+                {{#if task.description}}
+                <div class="task-description-section">
+                    <h5 class="section-heading">
+                        <i class="bi bi-file-text"></i> Description
+                    </h5>
+                    <div class="task-description">
+                        {{task.description}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <!-- Task details grid -->
+                <div class="task-details-grid">
+                    <div class="row">
+                        <!-- Due date and time -->
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <h6 class="detail-label">
+                                    <i class="bi bi-calendar-event"></i> Due Date
+                                </h6>
+                                <div class="detail-value {{#if (isOverdue task.due_datetime)}}overdue{{/if}}">
+                                    {{#if task.due_datetime}}
+                                        <div class="due-datetime">
+                                            <span class="due-date">{{formatDate task.due_datetime}}</span>
+                                            <span class="due-time">{{formatTime task.due_datetime}}</span>
+                                        </div>
+                                        {{#if (isOverdue task.due_datetime)}}
+                                            <small class="overdue-indicator">
+                                                <i class="bi bi-exclamation-triangle"></i> {{getOverdueDuration task.due_datetime}} overdue
+                                            </small>
+                                        {{/if}}
+                                    {{else}}
+                                        <span class="no-due-date">No due date set</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task status -->
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <h6 class="detail-label">
+                                    <i class="bi bi-flag"></i> Status
+                                </h6>
+                                <div class="detail-value">
+                                    <span class="badge status-badge {{getTaskStatusClass task}}">
+                                        {{#if task.completed}}
+                                            <i class="bi bi-check-circle"></i> Completed
+                                        {{else}}
+                                            {{#if (isOverdue task.due_datetime)}}
+                                                <i class="bi bi-exclamation-triangle"></i> Overdue
+                                            {{else}}
+                                                <i class="bi bi-hourglass-split"></i> Pending
+                                            {{/if}}
+                                        {{/if}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Created date -->
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <h6 class="detail-label">
+                                    <i class="bi bi-plus-circle"></i> Created
+                                </h6>
+                                <div class="detail-value">
+                                    {{#if task.created_at}}
+                                        {{formatDateTime task.created_at}}
+                                    {{else}}
+                                        Not available
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Last updated -->
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <h6 class="detail-label">
+                                    <i class="bi bi-arrow-clockwise"></i> Last Updated
+                                </h6>
+                                <div class="detail-value">
+                                    {{#if task.updated_at}}
+                                        {{formatDateTime task.updated_at}}
+                                    {{else}}
+                                        Not available
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
