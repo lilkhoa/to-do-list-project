@@ -206,6 +206,48 @@ class Task {
             throw new Error(`Error emptying trash: ${error.message}`);
         }
     }
+
+    // Bulk complete tasks
+    static async bulkComplete(taskIds) {
+        try {
+            const placeholders = taskIds.map(() => '?').join(',');
+            const [result] = await pool.execute(
+                `UPDATE tasks SET completed = 1 WHERE id IN (${placeholders})`,
+                taskIds,
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error bulk completing tasks: ${error.message}`);
+        }
+    }
+
+    // Bulk incomplete tasks
+    static async bulkIncomplete(taskIds) {
+        try {
+            const placeholders = taskIds.map(() => '?').join(',');
+            const [result] = await pool.execute(
+                `UPDATE tasks SET completed = 0 WHERE id IN (${placeholders})`,
+                taskIds,
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error bulk marking tasks as incomplete: ${error.message}`);
+        }
+    }
+
+    // Bulk delete tasks
+    static async bulkDelete(taskIds) {
+        try {
+            const placeholders = taskIds.map(() => '?').join(',');
+            const [result] = await pool.execute(
+                `UPDATE tasks SET deleted_at = NOW() WHERE id IN (${placeholders})`,
+                taskIds,
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error bulk deleting tasks: ${error.message}`);
+        }
+    }
 }
 
 module.exports = Task;

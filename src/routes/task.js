@@ -20,6 +20,10 @@ router.put('/deleted/:id/restore', taskController.restoreTask);
 router.delete('/deleted/:id/delete', taskController.permanentDeleteTask);
 router.delete('/deleted/empty-trash', taskController.emptyTrash);
 
+router.put('/bulk/bulk-complete', taskController.bulkComplete);
+router.put('/bulk/bulk-incomplete', taskController.bulkIncomplete);
+router.delete('/bulk/bulk-delete', taskController.bulkDelete);
+
 router.get('/', taskController.index); // List all tasks
 
 module.exports = router;

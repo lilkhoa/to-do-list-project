@@ -355,6 +355,40 @@
     </div>
 </div>
 
+{{!-- Delete Multiple Task Confirmation Modal --}}
+<div class="modal fade" id="bulkDeleteConfirmModal" tabindex="-1" aria-labelledby="bulkDeleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulkDeleteConfirmModalLabel">
+                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                    Confirm Bulk Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the selected tasks?</p>
+                <div class="selected-tasks-preview">
+                    <ul id="selectedTasksList" class="list-unstyled">
+                        <!-- Selected tasks will be dynamically populated -->
+                    </ul>
+                </div>
+                <p class="text-muted"><small>You can restore them from the trash later.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="confirmBulkDeleteBtn">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected Tasks</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 // Add click functionality to task items and delete confirmation
 document.addEventListener('DOMContentLoaded', function() {
@@ -364,8 +398,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const bulkActionsBar = document.getElementById('bulkActionsBar');
     const selectedCount = document.getElementById('selectedCount');
     const selectedCategory = document.getElementById('selectedCategory');
-    const bulkActionsContainer = document.getElementById('bulkActionsContainer');
-    
+    const bulkActionsContainer = document.getElementById('bulkActionsContainer');    
+    const urlParams = new URLSearchParams(window.location.search);
+    const bulkCompleteSuccess = urlParams.get('bulk-complete-success');
+    const bulkCompleteError = urlParams.get('bulk-complete-error');
+    const bulkIncompleteSuccess = urlParams.get('bulk-incomplete-success');
+    const bulkIncompleteError = urlParams.get('bulk-incomplete-error');
+
+    const bulkDeleteModal = new bootstrap.Modal(document.getElementById('bulkDeleteConfirmModal'));
+    const selectedTasksList = document.getElementById('selectedTasksList');
+    const confirmBulkDeleteBtn = document.getElementById('confirmBulkDeleteBtn');
+    const bulkDeleteSuccess = urlParams.get('bulk-delete-success');
+    const bulkDeleteError = urlParams.get('bulk-delete-error');
+
     let selectedTasks = [];
     
     clickableTasks.forEach(task => {
@@ -527,9 +572,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.performBulkAction = function(action) {
+        if (action === 'delete') {
+            // Show bulk delete confirmation modal
+            showBulkDeleteModal();
+        } else {
+            // For other actions, submit directly
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/task/bulk/bulk-${action}?_method=PUT`;
+            form.style.display = 'none';
+            
+            selectedTasks.forEach(taskId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'taskIds[]';
+                input.value = taskId;
+                form.appendChild(input);
+            });
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    };
+
+    function showBulkDeleteModal() {
+        // Clear previous list
+        selectedTasksList.innerHTML = '';
+        
+        // Populate selected tasks list
+        selectedTasks.forEach(taskId => {
+            const taskElement = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+            if (taskElement) {
+                const taskTitle = taskElement.querySelector('.task-title').textContent;
+                const listItem = document.createElement('li');
+                listItem.className = 'mb-1';
+                listItem.innerHTML = `<i class="bi bi-dot"></i> ${taskTitle}`;
+                selectedTasksList.appendChild(listItem);
+            }
+        });
+        
+        // Show the modal
+        bulkDeleteModal.show();
+    }
+
+    // Confirm bulk delete
+    confirmBulkDeleteBtn.addEventListener('click', function() {
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = `/task/bulk-${action}?_method=PUT`;
+        form.action = `/task/bulk/bulk-delete?_method=DELETE`;
         form.style.display = 'none';
         
         selectedTasks.forEach(taskId => {
@@ -542,7 +632,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(form);
         form.submit();
-    };
+    });
     
     window.clearSelection = function() {
         selectedTasks = [];
@@ -554,12 +644,72 @@ document.addEventListener('DOMContentLoaded', function() {
         updateBulkActionsVisibility();
     };
 
+    // Check for bulk action success or error messages
+    if (bulkCompleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Marked ${bulkCompleteSuccess} task(s) as complete!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task';
+        });
+    } else if (bulkCompleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkCompleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
+    if (bulkIncompleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Marked ${bulkIncompleteSuccess} task(s) as incomplete!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task';
+        });
+    } else if (bulkIncompleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkIncompleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
+    if (bulkDeleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Successfully deleted ${bulkDeleteSuccess} task(s)!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task';
+        });
+    } else if (bulkDeleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkDeleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
     // Delete functionality
     const deleteButtons = document.querySelectorAll('.delete-task-btn');
     const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
     const taskTitlePreview = document.getElementById('taskTitlePreview');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    const urlParams = new URLSearchParams(window.location.search);
     const deletedError = urlParams.get('deleted-error');
     const deletedSuccess = urlParams.get('deleted-success');
     

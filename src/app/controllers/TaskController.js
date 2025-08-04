@@ -233,6 +233,69 @@ class TaskController {
             next();
         }
     }
+
+    // [PUT] /task/bulk/bulk-complete
+    async bulkComplete(req, res, next) {
+        try {
+            let taskIds = req.body['taskIds[]'];
+
+            if (!Array.isArray(taskIds)) {
+                taskIds = [taskIds]; // Ensure taskIds is an array
+            }
+
+            if (taskIds.length === 0) {
+                return res.redirect('/task?bulk-complete-error=No tasks selected');
+            }
+
+            await Task.bulkComplete(taskIds);
+            res.redirect(`/task?bulk-complete-success=${taskIds.length}`); 
+        } catch (error) {
+            console.error('Error completing tasks in bulk:', error);
+            next();
+        }
+    }
+
+    // [PUT] /task/bulk/bulk-incomplete
+    async bulkIncomplete(req, res, next) {
+        try {
+            let taskIds = req.body['taskIds[]']; 
+
+            if (!Array.isArray(taskIds)) {
+                taskIds = [taskIds]; // Ensure taskIds is an array
+            }
+
+            if (taskIds.length === 0) {
+                return res.redirect('/task?bulk-incomplete-error=No tasks selected');
+            }
+
+            await Task.bulkIncomplete(taskIds);
+            res.redirect(`/task?bulk-incomplete-success=${taskIds.length}`);
+        } catch (error) {
+            console.error('Error marking tasks as incomplete in bulk:', error);
+            next();
+        }
+    }
+
+    // [DELETE] /task/bulk/bulk-delete
+    async bulkDelete(req, res, next) {
+        try {
+            let taskIds = req.body['taskIds[]'];
+
+            if (!Array.isArray(taskIds)) {
+                taskIds = [taskIds]; // Ensure taskIds is an array
+            }
+
+            if (taskIds.length === 0) {
+                return res.redirect('/task?bulk-delete-error=No tasks selected');
+            }
+            
+            await Task.bulkDelete(taskIds);
+            res.redirect(`/task?bulk-delete-success=${taskIds.length}`);
+        } catch (error) {
+            console.error('Error deleting tasks in bulk:', error);
+            next();
+        }
+    }
 }
 
 module.exports = new TaskController();
