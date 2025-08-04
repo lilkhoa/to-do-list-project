@@ -19,6 +19,8 @@ router.get('/deleted/trash', taskController.trash);
 router.put('/deleted/:id/restore', taskController.restoreTask);
 router.delete('/deleted/:id/delete', taskController.permanentDeleteTask);
 router.delete('/deleted/empty-trash', taskController.emptyTrash);
+router.put('/deleted/bulk/bulk-restore', taskController.bulkRestore);
+router.delete('/deleted/bulk/bulk-permanent-delete', taskController.bulkPermanentDelete);
 
 router.put('/bulk/bulk-complete', taskController.bulkComplete);
 router.put('/bulk/bulk-incomplete', taskController.bulkIncomplete);

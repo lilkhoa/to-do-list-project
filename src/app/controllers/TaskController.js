@@ -296,6 +296,48 @@ class TaskController {
             next();
         }
     }
+
+    // [PUT] /task/deleted/bulk/bulk-restore
+    async bulkRestore(req, res, next) {
+        try {
+            let taskIds = req.body['taskIds[]'];
+
+            if (!Array.isArray(taskIds)) {
+                taskIds = [taskIds]; // Ensure taskIds is an array
+            }
+
+            if (taskIds.length === 0) {
+                return res.redirect('/task/deleted/trash?bulk-restore-error=No tasks selected');
+            }
+
+            await Task.bulkRestore(taskIds);
+            res.redirect(`/task/deleted/trash?bulk-restore-success=${taskIds.length}`);
+        } catch (error) {
+            console.error('Error restoring tasks in bulk:', error);
+            next();
+        }
+    }
+
+    // [DELETE] /task/deleted/bulk/bulk-permanent-delete
+    async bulkPermanentDelete(req, res, next) {
+        try {
+            let taskIds = req.body['taskIds[]'];
+
+            if (!Array.isArray(taskIds)) {
+                taskIds = [taskIds]; // Ensure taskIds is an array
+            }
+
+            if (taskIds.length === 0) {
+                return res.redirect('/task/deleted/trash?bulk-permanent-delete-error=No tasks selected');
+            }
+
+            await Task.bulkPermanentDelete(taskIds);
+            res.redirect(`/task/deleted/trash?bulk-permanent-delete-success=${taskIds.length}`);
+        } catch (error) {
+            console.error('Error permanently deleting tasks in bulk:', error);
+            next();
+        }
+    }
 }
 
 module.exports = new TaskController();

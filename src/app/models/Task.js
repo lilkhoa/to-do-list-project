@@ -248,6 +248,34 @@ class Task {
             throw new Error(`Error bulk deleting tasks: ${error.message}`);
         }
     }
+
+    // Bulk restore tasks
+    static async bulkRestore(taskIds) {
+        try {
+            const placeholders = taskIds.map(() => '?').join(',');
+            const [result] = await pool.execute(
+                `UPDATE tasks SET deleted_at = NULL WHERE id IN (${placeholders})`,
+                taskIds,
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error bulk restoring tasks: ${error.message}`);
+        }
+    }
+
+    // Bulk permanently delete tasks
+    static async bulkPermanentDelete(taskIds) {
+        try {
+            const placeholders = taskIds.map(() => '?').join(',');
+            const [result] = await pool.execute(
+                `DELETE FROM tasks WHERE id IN (${placeholders})`,
+                taskIds,
+            );
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error bulk permanently deleting tasks: ${error.message}`);
+        }
+    }
 }
 
 module.exports = Task;
