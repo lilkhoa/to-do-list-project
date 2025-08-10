@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1>My To-Do List</h1>
                 <div class="d-flex gap-2">
-                    <a href="/task/bulk/bulk-action" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                    <a href="/task" class="btn btn-secondary d-inline-flex align-items-center">
                         <i class="bi bi-check-square"></i>
                         <span class="ms-1">Select</span>
                     </a>
@@ -27,6 +27,18 @@
     </div>
 </div>
 
+<!-- Bulk Actions Bar (hidden by default) -->
+<div class="bulk-actions-bar" id="bulkActionsBar" style="display: none;">
+   <div class="d-flex justify-content-between align-items-center">
+      <div class="selected-count">
+         <span id="selectedCount">0</span> tasks selected (<span id="selectedCategory">mixed</span>)
+      </div>
+      <div class="bulk-actions" id="bulkActionsContainer">
+         <!-- Actions will be dynamically populated -->
+      </div>
+   </div>
+</div>
+
 {{#if tasks}}
     <!-- Overdue Tasks Section -->
     {{#if (hasOverdueTasks tasks)}}
@@ -37,12 +49,25 @@
                     Overdue Tasks
                     <span class="task-count">{{countOverdueTasks tasks}}</span>
                 </h3>
+                <div class="section-controls">
+                    <div class="form-check">
+                        <input class="form-check-input select-all-checkbox" type="checkbox" id="selectAllOverdue" data-category="overdue">
+                        <label class="form-check-label" for="selectAllOverdue">
+                            Select All Overdue
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="task-list">
             {{#each tasks}}
                 {{#if (and (not completed) (isOverdue due_datetime))}}
-                <div class="task-item overdue clickable-task" data-task-id="{{id}}">
+                <div class="task-item overdue clickable-task" data-task-id="{{id}}" data-category="overdue">
+                    <div class="task-selection clickable-task">
+                        <div class="form-check">
+                            <input class="form-check-input task-checkbox" type="checkbox" id="task-{{id}}" value="{{id}}" data-category="overdue">
+                        </div>
+                    </div>
                     <div class="task-content">
                         <div class="task-header">
                             <div class="task-title-section">
@@ -111,12 +136,25 @@
                     Pending Tasks
                     <span class="task-count">{{countPendingTasks tasks}}</span>
                 </h3>
+                <div class="section-controls">
+                    <div class="form-check">
+                        <input class="form-check-input select-all-checkbox" type="checkbox" id="selectAllPending" data-category="pending">
+                        <label class="form-check-label" for="selectAllPending">
+                            Select All Pending
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="task-list">
             {{#each tasks}}
                 {{#if (and (not completed) (not (isOverdue due_datetime)))}}
-                <div class="task-item pending clickable-task" data-task-id="{{id}}">
+                <div class="task-item pending clickable-task" data-task-id="{{id}}" data-category="pending">
+                    <div class="task-selection clickable-task">
+                        <div class="form-check">
+                            <input class="form-check-input task-checkbox" type="checkbox" id="task-{{id}}" value="{{id}}" data-category="pending">
+                        </div>
+                    </div>
                     <div class="task-content">
                         <div class="task-header">
                             <div class="task-title-section">
@@ -190,12 +228,25 @@
                     Completed Tasks
                     <span class="task-count">{{countCompletedTasks tasks}}</span>
                 </h3>
+                <div class="section-controls">
+                    <div class="form-check">
+                        <input class="form-check-input select-all-checkbox" type="checkbox" id="selectAllCompleted" data-category="completed">
+                        <label class="form-check-label" for="selectAllCompleted">
+                            Select All Completed
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="task-list">
             {{#each tasks}}
                 {{#if completed}}
-                <div class="task-item completed clickable-task" data-task-id="{{id}}">
+                <div class="task-item completed clickable-task" data-task-id="{{id}}" data-category="completed">
+                    <div class="task-selection clickable-task">
+                        <div class="form-check">
+                            <input class="form-check-input task-checkbox" type="checkbox" id="task-{{id}}" value="{{id}}" data-category="completed">
+                        </div>
+                    </div>
                     <div class="task-content">
                         <div class="task-header">
                             <div class="task-title-section">
@@ -305,27 +356,356 @@
     </div>
 </div>
 
+{{!-- Delete Multiple Task Confirmation Modal --}}
+<div class="modal fade" id="bulkDeleteConfirmModal" tabindex="-1" aria-labelledby="bulkDeleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulkDeleteConfirmModalLabel">
+                    Confirm Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the selected tasks?</p>
+                <div class="selected-tasks-preview">
+                    <ul id="selectedTasksList" class="list-unstyled">
+                        <!-- Selected tasks will be dynamically populated -->
+                    </ul>
+                </div>
+                <p class="text-muted"><small>You can restore them from the trash later.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="confirmBulkDeleteBtn">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected Tasks</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-// Simple task navigation functionality (no bulk actions)
+// Bulk actions functionality - clicking task selects it instead of navigating
 document.addEventListener('DOMContentLoaded', function() {
     const clickableTasks = document.querySelectorAll('.clickable-task');
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+    const bulkActionsBar = document.getElementById('bulkActionsBar');
+    const selectedCount = document.getElementById('selectedCount');
+    const selectedCategory = document.getElementById('selectedCategory');
+    const bulkActionsContainer = document.getElementById('bulkActionsContainer');    
     const urlParams = new URLSearchParams(window.location.search);
+    const bulkCompleteSuccess = urlParams.get('bulk-complete-success');
+    const bulkCompleteError = urlParams.get('bulk-complete-error');
+    const bulkIncompleteSuccess = urlParams.get('bulk-incomplete-success');
+    const bulkIncompleteError = urlParams.get('bulk-incomplete-error');
 
-    // Navigate to task details when clicking on task
+    const bulkDeleteModal = new bootstrap.Modal(document.getElementById('bulkDeleteConfirmModal'));
+    const selectedTasksList = document.getElementById('selectedTasksList');
+    const confirmBulkDeleteBtn = document.getElementById('confirmBulkDeleteBtn');
+    const bulkDeleteSuccess = urlParams.get('bulk-delete-success');
+    const bulkDeleteError = urlParams.get('bulk-delete-error');
+
+    let selectedTasks = [];
+    
+    // In bulk mode, clicking task toggles its checkbox instead of navigating
     clickableTasks.forEach(task => {
         task.addEventListener('click', function(e) {
             if (e.target.closest('.task-actions')) {
                 return;
             }
             
-            const taskId = this.getAttribute('data-task-id');
-            if (taskId) {
-                window.location.href = `/task/${taskId}`;
+            const checkbox = this.querySelector('.task-checkbox');
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
             }
         });
         
         task.style.cursor = 'pointer';
     });
+
+    // Individual task checkbox change
+    taskCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const taskId = this.value;
+            const category = this.getAttribute('data-category');
+            
+            if (this.checked) {
+                if (!selectedTasks.includes(taskId)) {
+                    selectedTasks.push(taskId);
+                }
+            } else {
+                selectedTasks = selectedTasks.filter(id => id !== taskId);
+            }
+            
+            updateBulkActionsVisibility();
+            updateSelectAllCheckbox(category);
+        });
+    });
+    
+    // Select all checkbox change
+    selectAllCheckboxes.forEach(selectAllCheckbox => {
+        selectAllCheckbox.addEventListener('change', function() {
+            const category = this.getAttribute('data-category');
+            const categoryCheckboxes = document.querySelectorAll(`.task-checkbox[data-category="${category}"]`);
+            
+            categoryCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+                
+                const taskId = checkbox.value;
+                if (this.checked) {
+                    if (!selectedTasks.includes(taskId)) {
+                        selectedTasks.push(taskId);
+                    }
+                } else {
+                    selectedTasks = selectedTasks.filter(id => id !== taskId);
+                }
+            });
+            
+            updateBulkActionsVisibility();
+        });
+    });
+    
+    function updateSelectAllCheckbox(category) {
+        const categoryCheckboxes = document.querySelectorAll(`.task-checkbox[data-category="${category}"]`);
+        const checkedCategoryCheckboxes = document.querySelectorAll(`.task-checkbox[data-category="${category}"]:checked`);
+        const selectAllCheckbox = document.querySelector(`.select-all-checkbox[data-category="${category}"]`);
+        
+        if (checkedCategoryCheckboxes.length === 0) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = false;
+        } else if (checkedCategoryCheckboxes.length === categoryCheckboxes.length) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = true;
+        } else {
+            selectAllCheckbox.indeterminate = true;
+            selectAllCheckbox.checked = false;
+        }
+    }
+    
+    function updateBulkActionsVisibility() {
+        if (selectedTasks.length > 0) {
+            const categories = getSelectedCategories();
+            bulkActionsBar.style.display = 'block';
+            selectedCount.textContent = selectedTasks.length;
+            
+            if (categories.length === 1) {
+                selectedCategory.textContent = categories[0];
+                updateBulkActions(categories[0]);
+            } else {
+                selectedCategory.textContent = 'mixed';
+                updateBulkActions('mixed');
+            }
+        } else {
+            bulkActionsBar.style.display = 'none';
+        }
+    }
+    
+    function getSelectedCategories() {
+        const categories = new Set();
+        selectedTasks.forEach(taskId => {
+            const checkbox = document.querySelector(`.task-checkbox[value="${taskId}"]`);
+            if (checkbox) {
+                categories.add(checkbox.getAttribute('data-category'));
+            }
+        });
+        return Array.from(categories);
+    }
+    
+    function updateBulkActions(category) {
+        let actions = '';
+        
+        if (category === 'overdue') {
+            actions = `
+                <button class="btn btn-outline-success btn-sm" onclick="performBulkAction('complete')">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Complete Selected</span>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" onclick="performBulkAction('delete')">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected</span>
+                </button>
+            `;
+        } else if (category === 'pending') {
+            actions = `
+                <button class="btn btn-outline-success btn-sm" onclick="performBulkAction('complete')">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Complete Selected</span>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" onclick="performBulkAction('delete')">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected</span>
+                </button>
+            `;
+        } else if (category === 'completed') {
+            actions = `
+                <button class="btn btn-outline-warning btn-sm" onclick="performBulkAction('incomplete')">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    <span>Mark Incomplete</span>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" onclick="performBulkAction('delete')">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected</span>
+                </button>
+            `;
+        } else {
+            actions = `
+                <button class="btn btn-outline-danger btn-sm" onclick="performBulkAction('delete')">
+                    <i class="bi bi-trash"></i>
+                    <span>Delete Selected</span>
+                </button>
+            `;
+        }
+        
+        actions += `
+            <button class="btn btn-outline-secondary btn-sm" onclick="clearSelection()">
+                <i class="bi bi-x-circle"></i>
+                <span>Clear Selection</span>
+            </button>
+        `;
+        
+        bulkActionsContainer.innerHTML = actions;
+    }
+    
+    window.performBulkAction = function(action) {
+        if (action === 'delete') {
+            // Show bulk delete confirmation modal
+            showBulkDeleteModal();
+        } else {
+            // For other actions, submit directly
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/task/bulk/bulk-${action}?_method=PUT`;
+            form.style.display = 'none';
+            
+            selectedTasks.forEach(taskId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'taskIds[]';
+                input.value = taskId;
+                form.appendChild(input);
+            });
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    };
+
+    function showBulkDeleteModal() {
+        // Clear previous list
+        selectedTasksList.innerHTML = '';
+        
+        // Populate selected tasks list
+        selectedTasks.forEach(taskId => {
+            const taskElement = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+            if (taskElement) {
+                const taskTitle = taskElement.querySelector('.task-title').textContent;
+                const listItem = document.createElement('li');
+                listItem.className = 'mb-1';
+                listItem.innerHTML = `<strong class="bi bi-dot" id="taskTitlePreview">${taskTitle}</strong>`;
+                selectedTasksList.appendChild(listItem);
+            }
+        });
+        
+        // Show the modal
+        bulkDeleteModal.show();
+    }
+
+    // Confirm bulk delete
+    confirmBulkDeleteBtn.addEventListener('click', function() {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/task/bulk/bulk-delete?_method=DELETE`;
+        form.style.display = 'none';
+        
+        selectedTasks.forEach(taskId => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'taskIds[]';
+            input.value = taskId;
+            form.appendChild(input);
+        });
+        
+        document.body.appendChild(form);
+        form.submit();
+    });
+    
+    window.clearSelection = function() {
+        selectedTasks = [];
+        taskCheckboxes.forEach(checkbox => checkbox.checked = false);
+        selectAllCheckboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.indeterminate = false;
+        });
+        updateBulkActionsVisibility();
+    };
+
+    // Check for bulk action success or error messages
+    if (bulkCompleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Marked ${bulkCompleteSuccess} task(s) as complete!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task/bulk';
+        });
+    } else if (bulkCompleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkCompleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
+    if (bulkIncompleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Marked ${bulkIncompleteSuccess} task(s) as incomplete!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task/bulk';
+        });
+    } else if (bulkIncompleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkIncompleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+
+    if (bulkDeleteSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Successfully deleted ${bulkDeleteSuccess} task(s)!`,
+            confirmButtonText: 'Done',
+            confirmButtonColor: '#198754'
+        }).then(() => {
+            window.location.href = '/task/bulk';
+        });
+    } else if (bulkDeleteError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: bulkDeleteError,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
+        });
+    }
 
     // Delete functionality
     const deleteButtons = document.querySelectorAll('.delete-task-btn');
@@ -372,7 +752,7 @@ document.addEventListener('DOMContentLoaded', function() {
             confirmButtonText: 'OK',
             confirmButtonColor: '#198754'
         }).then(() => {
-            window.location.href = '/task';
+            window.location.href = '/task/bulk';
         });
     } else if (deletedError) {
         Swal.fire({

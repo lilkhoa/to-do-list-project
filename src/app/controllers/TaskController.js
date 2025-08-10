@@ -338,6 +338,18 @@ class TaskController {
             next();
         }
     }
+
+    // [GET] /task/bulk/bulk-action
+    async bulkAction(req, res, next) {
+        try {
+            const userId = req.session.user?.id;
+            const tasks = await Task.findAll(userId);
+            res.render('task/bulk-action', { tasks });
+        } catch (error) {
+            console.error('Error rendering bulk action page:', error);
+            next();
+        }
+    }
 }
 
 module.exports = new TaskController();
