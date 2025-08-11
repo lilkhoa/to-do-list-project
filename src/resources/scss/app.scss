@@ -129,10 +129,16 @@ textarea.form-control {
 // Task creation form specific styles
 .task-create-form {
     .card {
-        max-width: 100%;
+        max-width: 700px;
         margin: 0 auto;
+        background: white;
+        border-radius: 12px; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+        border: none;
+        overflow: hidden;
 
         .card-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             text-align: center;
             padding: 1.5rem 2rem;
 
