@@ -1,235 +1,236 @@
-<div class="trash-header">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="header-info">
-                    <h1>
-                        <i class="bi bi-trash"></i>
-                        Trash
-                    </h1>
+<div class="trash-page">
+    <div class="container">
+        <div class="trash-header">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="header-info">
+                            <h1>
+                                <i class="bi bi-trash"></i>
+                                Trash
+                            </h1>
+                        </div>
+                        <div class="header-actions">
+                            <a href="/task" class="btn btn-outline-primary me-2">
+                                <i class="bi bi-arrow-left"></i>
+                                <span>Back</span>
+                            </a>
+                            {{#if (hasDeletedTasks deletedTasks)}}
+                            <button class="btn btn-outline-danger" id="emptyTrashBtn">
+                                <i class="bi bi-trash"></i>
+                                <span>Empty Trash</span>
+                            </button>
+                            {{/if}}
+                        </div>
+                    </div>
                 </div>
-                <div class="header-actions">
-                    <a href="/task" class="btn btn-outline-primary me-2">
-                        <i class="bi bi-arrow-left"></i>
-                        <span>Back</span>
-                    </a>
-                    {{#if (hasDeletedTasks deletedTasks)}}
-                    <button class="btn btn-outline-danger" id="emptyTrashBtn">
-                        <i class="bi bi-trash"></i>
-                        <span>Empty Trash</span>
+            </div>
+        </div>
+
+        <!-- Bulk Actions Bar (hidden by default) -->
+        <div class="bulk-actions-bar" id="bulkActionsBar" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="selected-count">
+                    <span id="selectedCount">0</span> task(s) selected
+                </div>
+                <div class="bulk-actions">
+                    <button class="btn btn-outline-success btn-sm" id="bulkRestoreBtn">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        <span>Restore Selected</span>
                     </button>
+                    <button class="btn btn-outline-danger btn-sm" id="bulkDeleteBtn">
+                        <i class="bi bi-trash"></i>
+                        <span>Delete Selected</span>
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" id="clearSelectionBtn">
+                        <i class="bi bi-x-circle"></i>
+                        <span>Clear Selection</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="deleted-section-wrapper task-section">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="section-title">
+                        <i class="bi bi-trash text-muted"></i>
+                        Deleted Tasks
+                        <span class="task-count">{{countDeletedTasks deletedTasks}}</span>
+                    </h3>
+                    {{#if (hasDeletedTasks deletedTasks)}}
+                    <div class="section-controls">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAllTasks">
+                            <label class="form-check-label" for="selectAllTasks">
+                                Select All
+                            </label>
+                        </div>
+                    </div>
                     {{/if}}
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bulk Actions Bar (hidden by default) -->
-<div class="bulk-actions-bar" id="bulkActionsBar" style="display: none;">
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="selected-count">
-            <span id="selectedCount">0</span> task(s) selected
-        </div>
-        <div class="bulk-actions">
-            <button class="btn btn-outline-success btn-sm" id="bulkRestoreBtn">
-                <i class="bi bi-arrow-clockwise"></i>
-                <span>Restore Selected</span>
-            </button>
-            <button class="btn btn-outline-danger btn-sm" id="bulkDeleteBtn">
-                <i class="bi bi-trash"></i>
-                <span>Delete Selected</span>
-            </button>
-            <button class="btn btn-outline-secondary btn-sm" id="clearSelectionBtn">
-                <i class="bi bi-x-circle"></i>
-                <span>Clear Selection</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="deleted-section-wrapper task-section">
-    <div class="section-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3 class="section-title">
-                <i class="bi bi-trash text-muted"></i>
-                Deleted Tasks
-                <span class="task-count">{{countDeletedTasks deletedTasks}}</span>
-            </h3>
             {{#if (hasDeletedTasks deletedTasks)}}
-            <div class="section-controls">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="selectAllTasks">
-                    <label class="form-check-label" for="selectAllTasks">
-                        Select All
-                    </label>
-                </div>
-            </div>
-            {{/if}}
-        </div>
-    </div>
-    {{#if (hasDeletedTasks deletedTasks)}}
-        <div class="deleted-section">
-            <div class="task-list">
-                {{#each deletedTasks}}
-                {{#if deleted_at}}
-                <div class="task-item deleted" data-task-id="{{id}}">
-                    <div class="task-selection">
-                        <div class="form-check">
-                            <input class="form-check-input task-checkbox" type="checkbox" id="task-{{id}}" value="{{id}}">
-                        </div>
-                    </div>
-                    <div class="task-content">
-                        <div class="task-header">
-                            <div class="task-title-section">
-                                <div class="task-status-icon">
-                                    <i class="bi bi-trash text-muted"></i>
-                                </div>
-                                <div class="task-info">
-                                    <h5 class="task-title text-muted">{{title}}</h5>
-                                    {{#if description}}
-                                    <p class="task-description text-muted">{{truncate description 60}}</p>
-                                    {{/if}}
+                <div class="deleted-section">
+                    <div class="task-list">
+                        {{#each deletedTasks}}
+                        {{#if deleted_at}}
+                        <div class="task-item deleted clickable-task" data-task-id="{{id}}">
+                            <div class="task-selection clickable-task">
+                                <div class="form-check">
+                                    <input class="form-check-input task-checkbox" type="checkbox" id="task-{{id}}" value="{{id}}">
                                 </div>
                             </div>
+                            <div class="task-content">
+                                <div class="task-header">
+                                    <div class="task-title-section">
+                                        <div class="task-status-icon">
+                                            <i class="bi bi-trash text-muted"></i>
+                                        </div>
+                                        <div class="task-info">
+                                            <h5 class="task-title text-muted">{{title}}</h5>
+                                            {{#if description}}
+                                            <p class="task-description text-muted">{{truncate description 60}}</p>
+                                            {{/if}}
+                                        </div>
+                                    </div>
 
-                            <div class="task-meta-section">
-                                <!-- Due Date/Time -->
-                                {{#if due_datetime}}
-                                <div class="due-date-info deleted">
-                                    <div class="due-date-badge">
-                                        <i class="bi bi-clock"></i>
-                                        <div class="due-details">
-                                            <span class="due-date-text">{{formatDate due_datetime}}</span>
-                                            <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                    <div class="task-meta-section">
+                                        <!-- Due Date/Time -->
+                                        {{#if due_datetime}}
+                                        <div class="due-date-info deleted">
+                                            <div class="due-date-badge">
+                                                <i class="bi bi-clock"></i>
+                                                <div class="due-details">
+                                                    <span class="due-date-text">{{formatDate due_datetime}}</span>
+                                                    <span class="due-time-text">{{formatTime due_datetime}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        <div class="status-badge">
+                                            <span class="badge status-deleted">
+                                                <i class="bi bi-trash"></i> Deleted
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                {{/if}}
+
+                                <!-- Task Actions -->
+                                <div class="task-actions" onclick="event.stopPropagation()">
+                                    <form action="/task/deleted/{{id}}/restore?_method=PUT" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Restore">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                            <span class="ms-1">Restore</span>
+                                        </button>
+                                    </form>
+                                    <button class="btn btn-sm btn-outline-danger permanent-delete-task-btn" title="Delete Permanent"
+                                        data-task-id="{{id}}" data-task-title="{{title}}">
+                                        <i class="bi bi-trash"></i>
+                                        <span class="ms-1">Delete Permanent</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Task Actions -->
-                        <div class="task-actions" onclick="event.stopPropagation()">
-                            <form action="/task/deleted/{{id}}/restore?_method=PUT" method="POST" class="d-inline">
-                                <button type="submit" class="btn btn-sm btn-outline-success" title="Restore">
-                                    <i class="bi bi-arrow-clockwise"></i>
-                                    <span class="ms-1">Restore</span>
-                                </button>
-                            </form>
-                            <button class="btn btn-sm btn-outline-danger permanent-delete-task-btn" title="Delete Permanent"
-                                data-task-id="{{id}}" data-task-title="{{title}}">
-                                <i class="bi bi-trash"></i>
-                                <span class="ms-1">Delete Permanent</span>
-                            </button>
-                        </div>
+                        {{/if}}
+                        {{/each}}
                     </div>
                 </div>
-                {{/if}}
-                {{/each}}
-            </div>
+            {{/if}}
         </div>
-    {{else}}
-        <div class="empty-state">
-            <h4>Trash is empty</h4>
-            <p>No deleted tasks found.</p>
-        </div>
-    {{/if}}
-</div>
 
-<!-- Permanent Delete Confirmation Modal -->
-<div class="modal fade" id="permanentDeleteConfirmModal" tabindex="-1"
-    aria-labelledby="permanentDeleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="permanentDeleteConfirmModalLabel">
-                    <i class="bi bi-exclamation-triangle text-danger"></i>
-                    Delete Permanent
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>This action cannot be undone!</strong></p>
-                <p>Are you sure you want to permanently delete this task?</p>
-                <div class="task-preview">
-                    <strong id="permanentDeleteTaskTitlePreview"></strong>
+        <!-- Permanent Delete Confirmation Modal -->
+        <div class="modal fade" id="permanentDeleteConfirmModal" tabindex="-1"
+            aria-labelledby="permanentDeleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="permanentDeleteConfirmModalLabel">
+                            Delete Permanent
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>This action cannot be undone!</strong></p>
+                        <p>Are you sure you want to permanently delete this task?</p>
+                        <div class="task-preview">
+                            <strong id="permanentDeleteTaskTitlePreview"></strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i>
+                            <span>Cancel</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" id="confirmPermanentDeleteBtn">
+                            <i class="bi bi-trash"></i>
+                            <span>Delete Permanent</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i>
-                    <span>Cancel</span>
-                </button>
-                <button type="button" class="btn btn-outline-danger" id="confirmPermanentDeleteBtn">
-                    <i class="bi bi-trash"></i>
-                    <span>Delete Permanent</span>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Empty Trash Confirmation Modal -->
-<div class="modal fade" id="emptyTrashConfirmModal" tabindex="-1" aria-labelledby="emptyTrashConfirmModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="emptyTrashConfirmModalLabel">
-                    <i class="bi bi-exclamation-triangle text-danger"></i>
-                    Empty Trash
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>This action cannot be undone!</strong></p>
-                <p>Are you sure you want to permanently delete all tasks in trash?</p>
-                <p class="text-muted">{{countDeletedTasks deletedTasks}} tasks will be permanently deleted.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i>
-                    <span>Cancel</span>
-                </button>
-                <button type="button" class="btn btn-outline-danger" id="confirmEmptyTrashBtn">
-                    <i class="bi bi-trash"></i>
-                    <span>Empty Trash</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bulk Delete Confirmation Modal -->
-<div class="modal fade" id="bulkDeleteConfirmModal" tabindex="-1" aria-labelledby="bulkDeleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bulkDeleteConfirmModalLabel">
-                    <i class="bi bi-exclamation-triangle text-danger"></i>
-                    Delete Selected Tasks
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>This action cannot be undone!</strong></p>
-                <p>Are you sure you want to permanently delete the selected tasks?</p>
-                <div class="selected-tasks-preview">
-                    <ul id="deleteSelectedTasksList" class="list-unstyled">
-                        <!-- Selected tasks will be dynamically populated -->
-                    </ul>
+        <!-- Empty Trash Confirmation Modal -->
+        <div class="modal fade" id="emptyTrashConfirmModal" tabindex="-1" aria-labelledby="emptyTrashConfirmModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emptyTrashConfirmModalLabel">
+                            Empty Trash
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>This action cannot be undone!</strong></p>
+                        <p>Are you sure you want to permanently delete all tasks in trash?</p>
+                        <p class="text-muted">{{countDeletedTasks deletedTasks}} tasks will be permanently deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i>
+                            <span>Cancel</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" id="confirmEmptyTrashBtn">
+                            <i class="bi bi-trash"></i>
+                            <span>Empty Trash</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i>
-                    <span>Cancel</span>
-                </button>
-                <button type="button" class="btn btn-outline-danger" id="confirmBulkDeleteBtn">
-                    <i class="bi bi-trash"></i>
-                    <span>Delete Selected</span>
-                </button>
+        </div>
+
+        <!-- Bulk Delete Confirmation Modal -->
+        <div class="modal fade" id="bulkDeleteConfirmModal" tabindex="-1" aria-labelledby="bulkDeleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bulkDeleteConfirmModalLabel">
+                            Delete Selected Tasks
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>This action cannot be undone!</strong></p>
+                        <p>Are you sure you want to permanently delete the selected tasks?</p>
+                        <div class="selected-tasks-preview">
+                            <ul id="deleteSelectedTasksList" class="list-unstyled">
+                                <!-- Selected tasks will be dynamically populated -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i>
+                            <span>Cancel</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" id="confirmBulkDeleteBtn">
+                            <i class="bi bi-trash"></i>
+                            <span>Delete Selected</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -246,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const bulkRestoreBtn = document.getElementById('bulkRestoreBtn');
     const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
     const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+    const clickableTasks = document.querySelectorAll('.clickable-task');
     
     // Bulk action modals
     const bulkDeleteModal = new bootstrap.Modal(document.getElementById("bulkDeleteConfirmModal"));
@@ -254,6 +256,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmBulkDeleteBtn = document.getElementById('confirmBulkDeleteBtn');
     
     let selectedTasks = [];
+
+    clickableTasks.forEach(task => {
+        task.addEventListener('click', function(e) {
+            if (e.target.closest('.task-actions')) {
+                return;
+            }
+            
+            const checkbox = this.querySelector('.task-checkbox');
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
+            }
+        });
+        
+        task.style.cursor = 'pointer';
+    });
 
     // Individual task checkbox change
     taskCheckboxes.forEach(checkbox => {
@@ -377,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const taskTitle = taskElement.querySelector('.task-title').textContent;
                 const listItem = document.createElement('li');
                 listItem.className = 'mb-1';
-                listItem.innerHTML = `<i class="bi bi-dot"></i> ${taskTitle}`;
+                listItem.innerHTML = `<strong class="bi bi-dot">${taskTitle}</strong>`;
                 deleteSelectedTasksList.appendChild(listItem);
             }
         });
