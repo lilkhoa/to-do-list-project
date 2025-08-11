@@ -1645,284 +1645,601 @@ textarea.form-control {
 
 // Profile page styles
 .profile-container {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    min-height: 100vh;
     padding: 2rem 0;
 
+    // Enhanced profile header with pink theme
     .profile-header {
-        background: linear-gradient(135deg, $primary-color 0%, color.scale($primary-color, $lightness: 20%) 100%);
-        border-radius: 1rem;
-        padding: 2rem;
-        color: white;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 3rem 2rem;
         margin-bottom: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 2rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
 
-        @media (max-width: 768px) {
-            flex-direction: column;
-            text-align: center;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); // Updated to pink gradient
+            z-index: 1;
         }
 
         .profile-avatar {
             position: relative;
+            z-index: 3;
+            margin-bottom: 1.5rem;
+
+            img {
+                width: 140px;
+                height: 140px;
+                border: 6px solid white;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
 
             .avatar-overlay {
                 position: absolute;
-                bottom: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.7);
+                bottom: 10px;
+                right: 420px;
+                width: 40px;
+                height: 40px;
+                background: linear-gradient(135deg, #ff758c, #ff7eb3); // Updated to pink gradient
                 border-radius: 50%;
-                width: 32px;
-                height: 32px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                cursor: pointer;
+                color: white;
+                box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                transition: all 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4); // Enhanced pink shadow
+                }
 
                 i {
-                    color: white;
-                    font-size: 0.9rem;
+                    font-size: 1.2rem;
                 }
             }
         }
 
         .profile-info {
-            flex: 1;
+            position: relative;
+            z-index: 2;
 
             .profile-name {
-                margin-bottom: 0.5rem;
+                font-size: 2.5rem;
                 font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 0.5rem;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
             .profile-subtitle {
-                opacity: 0.9;
-                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+                color: #6c757d;
+                margin-bottom: 2rem;
+                font-weight: 500;
             }
 
             .profile-stats {
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); // 3 columns for better organization
                 gap: 2rem;
-
-                @media (max-width: 576px) {
-                    justify-content: center;
-                }
+                margin-top: 2rem;
+                max-width: 600px; // Limit width for better proportion
+                margin-left: auto;
+                margin-right: auto;
 
                 .stat-item {
-                    text-align: center;
+                    background: rgba(255, 255, 255, 0.9);
+                    padding: 2rem 1.5rem; // Increased padding for better spacing
+                    border-radius: 16px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.8);
+                    transition: all 0.3s ease;
+                    text-align: center; // Center align for better symmetry
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 30px rgba(255, 117, 140, 0.15); // Pink hover shadow
+                    }
 
                     .stat-number {
                         display: block;
-                        font-size: 2rem;
+                        font-size: 3rem; // Increased size for better prominence
                         font-weight: 700;
+                        color: #ff758c; // Updated to pink color
+                        margin-bottom: 0.5rem; // Increased margin
+                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     }
 
                     .stat-label {
-                        font-size: 0.9rem;
-                        opacity: 0.8;
+                        font-size: 1rem; // Slightly larger label
+                        color: #6c757d;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
                     }
                 }
             }
         }
     }
 
+    // Enhanced profile navigation with pink theme
     .profile-nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 0.5rem;
         margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.8);
 
         .nav-tabs {
             border: none;
+            justify-content: center;
 
-            .nav-link {
-                border: none;
-                color: #6c757d;
-                padding: 1rem 1.5rem;
-                border-radius: 0.5rem;
-                margin-right: 0.5rem;
+            .nav-item {
+                margin: 0 0.5rem;
 
-                &.active {
-                    background: $primary-color;
-                    color: white;
-                }
+                .nav-link {
+                    border: none;
+                    border-radius: 12px;
+                    padding: 1rem 2rem;
+                    font-weight: 600;
+                    color: #6c757d;
+                    background: transparent;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
 
-                i {
-                    margin-right: 0.5rem;
+                    i {
+                        font-size: 1.1rem;
+                    }
+
+                    &:hover {
+                        background: rgba(255, 117, 140, 0.1); // Pink hover background
+                        color: #ff758c; // Pink hover color
+                        transform: translateY(-2px);
+                    }
+
+                    &.active {
+                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient for active
+                        color: white;
+                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+
+                        &:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4); // Enhanced pink shadow
+                        }
+                    }
                 }
             }
         }
     }
 
-    .profile-section {
-        background: white;
-        border-radius: 1rem;
-        padding: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    // Enhanced tab content
+    .tab-content {
+        .profile-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
 
-        .section-title {
-            margin-bottom: 1.5rem;
-            color: #333;
-
-            i {
-                margin-right: 0.5rem;
-            }
-        }
-
-        .activity-card {
-            background: #f8f9fa;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-
-            .activity-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: white;
+            .section-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 2rem;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                gap: 0.75rem;
 
                 i {
-                    font-size: 1.5rem;
+                    font-size: 1.4rem;
+                    color: #ff758c; // Updated to pink color
                 }
             }
 
-            .activity-content {
-                h6 {
-                    margin-bottom: 0.5rem;
-                    color: #333;
-                }
+            // Enhanced statistics grid for dashboard tab with pink theme
+            .statistics-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); // 3 columns
+                gap: 2rem; // Increased gap
+                margin-bottom: 3rem;
+                max-width: 900px; // Limit width for better organization
+                margin-left: auto;
+                margin-right: auto;
 
-                .activity-number {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    margin-bottom: 0.25rem;
-                    color: $primary-color;
+                .stat-card {
+                    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                    border-radius: 16px;
+                    padding: 2.5rem; // Increased padding
+                    border: 1px solid #dee2e6;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                    text-align: center; // Center align for consistency
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 50%; // Center the accent line
+                        transform: translateX(-50%);
+                        width: 60px; // Make it a centered bar instead of side line
+                        height: 4px;
+                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink accent bar
+                        border-radius: 0 0 4px 4px;
+                    }
+
+                    &:hover {
+                        transform: translateY(-8px); // More pronounced hover
+                        box-shadow: 0 15px 40px rgba(255, 117, 140, 0.15); // Pink hover shadow
+                    }
+
+                    .stat-icon {
+                        width: 60px; // Larger icon
+                        height: 60px;
+                        border-radius: 50%; // Make it circular
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem; // Center and increase margin
+                        font-size: 1.8rem; // Larger icon size
+
+                        &.completed {
+                            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+                            color: #155724;
+                            box-shadow: 0 4px 16px rgba(21, 87, 36, 0.2);
+                        }
+
+                        &.pending {
+                            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+                            color: #1565c0;
+                            box-shadow: 0 4px 16px rgba(21, 101, 192, 0.2);
+                        }
+
+                        &.total {
+                            background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient for total
+                            color: white;
+                            box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                        }
+                    }
+
+                    .stat-content {
+                        h6 {
+                            font-weight: 700; // Increased weight
+                            color: #495057;
+                            margin-bottom: 1rem; // Increased margin
+                            font-size: 1rem; // Slightly larger
+                            text-transform: uppercase;
+                            letter-spacing: 0.8px; // Increased spacing
+                        }
+
+                        .stat-number {
+                            font-size: 2.5rem; // Larger number
+                            font-weight: 700;
+                            color: #2c3e50;
+                            margin-bottom: 0.5rem; // Increased margin
+                            line-height: 1;
+                        }
+
+                        .stat-description {
+                            font-size: 0.9rem;
+                            color: #6c757d;
+                            line-height: 1.4;
+                        }
+                    }
                 }
             }
-        }
 
-        .recent-activity {
-            margin-top: 2rem;
-
-            h5 {
-                margin-bottom: 1rem;
-                color: #333;
-            }
-
+            // Enhanced activity list
             .activity-list {
+                background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid #e9ecef;
+
                 .activity-item {
                     display: flex;
                     align-items: center;
-                    gap: 1rem;
                     padding: 1rem 0;
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                    transition: all 0.3s ease;
 
                     &:last-child {
                         border-bottom: none;
                     }
 
+                    &:hover {
+                        background: rgba(255, 117, 140, 0.05); // Pink hover background
+                        border-radius: 8px;
+                        margin: 0 -1rem;
+                        padding: 1rem;
+                    }
+
                     .activity-indicator {
-                        width: 12px;
-                        height: 12px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 50%;
-
-                        &.completed {
-                            background: $success-color;
-                        }
-
-                        &.pending {
-                            background: $warning-color;
-                        }
+                        margin-right: 1rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.1rem;
+                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient
                     }
 
                     .activity-details {
+                        flex: 1;
+
                         h6 {
+                            font-weight: 600;
+                            color: #2c3e50;
                             margin-bottom: 0.25rem;
-                            color: #333;
+                            font-size: 1rem;
                         }
 
-                        p {
-                            margin: 0;
-                            font-size: 0.875rem;
+                        .activity-time {
+                            font-size: 0.85rem;
+                            color: #6c757d;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+
+                            i {
+                                font-size: 0.8rem;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-
-            .empty-icon {
-                font-size: 4rem;
-                color: #dee2e6;
-                margin-bottom: 1.5rem;
+            // Empty state styling
+            .empty-state {
+                text-align: center;
+                padding: 3rem 2rem;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                border-radius: 16px;
+                border: 2px dashed #dee2e6;
 
                 i {
-                    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+                    font-size: 3rem;
+                    color: #dee2e6;
+                }
+
+                p {
+                    color: #6c757d;
+                    font-size: 1.1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .btn {
+                    border-radius: 12px;
+                    padding: 0.75rem 1.5rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink button
+                    border: none;
+                    color: white;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                    }
                 }
             }
 
-            h4 {
-                color: #495057;
-                font-weight: 700;
-                margin-bottom: 1rem;
+            // Security form styling with pink accents
+            .security-form {
+                .form-group {
+                    margin-bottom: 1.5rem;
+
+                    .form-label {
+                        font-weight: 600;
+                        color: #2c3e50;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .form-control {
+                        border: 2px solid #e9ecef;
+                        border-radius: 12px;
+                        padding: 0.875rem 1rem;
+                        transition: all 0.3s ease;
+
+                        &:focus {
+                            border-color: #ff758c; // Pink border on focus
+                            box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.15); // Pink focus ring
+                            transform: translateY(-2px);
+                        }
+                    }
+                }
+
+                .form-actions {
+                    margin-top: 2rem;
+
+                    .btn {
+                        border-radius: 12px;
+                        padding: 0.875rem 2rem;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink button
+                        border: none;
+                        color: white;
+
+                        &:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                        }
+                    }
+                }
             }
 
-            p {
-                color: #6c757d;
-                font-size: 1.1rem;
-                margin-bottom: 2rem;
-            }
-
-            .btn {
+            .btn-outline-profile {
+                border: 2px solid #ff758c;
+                color: #ff758c;
+                background: transparent;
                 border-radius: 12px;
-                padding: 1rem 2rem;
+                padding: 0.75rem 1.5rem;
                 font-weight: 600;
-                font-size: 1.1rem;
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                text-decoration: none;
 
                 &:hover {
+                    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+                    border-color: #ff758c;
+                    color: white;
                     transform: translateY(-2px);
-                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                    box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3);
+                }
+
+                &:focus {
+                    box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.25);
+                    border-color: #ff758c;
+                    color: #ff758c;
+                }
+
+                &:active {
+                    transform: translateY(0);
+                    background: linear-gradient(135deg, #ff6b7a, #ff6fa1);
+                    border-color: #ff6b7a;
+                    color: white;
+                }
+
+                i {
+                    font-size: 1rem;
                 }
             }
         }
+    }
 
-        .profile-form,
-        .security-form {
-            .form-actions {
-                margin-top: 2rem;
+    // Responsive design with pink theme maintained
+    @media (max-width: 768px) {
+        padding: 1rem 0;
 
-                .btn {
-                    margin-right: 1rem;
+        .profile-header {
+            padding: 2rem 1rem;
+            margin: 1rem;
 
-                    i {
-                        margin-right: 0.5rem;
+            .profile-avatar img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-info {
+                .profile-name {
+                    font-size: 2rem;
+                }
+
+                .profile-stats {
+                    grid-template-columns: 1fr; // Single column on mobile
+                    gap: 1.5rem;
+                    max-width: 280px; // Smaller max-width for mobile
+
+                    .stat-item {
+                        padding: 1.5rem 1rem;
+
+                        .stat-number {
+                            font-size: 2.5rem;
+                        }
+
+                        .stat-label {
+                            font-size: 0.9rem;
+                        }
                     }
                 }
             }
         }
 
-        .danger-zone {
-            background: #fff5f5;
-            border: 1px solid #fed7d7;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
+        .profile-nav {
+            margin: 1rem;
 
-            h5 {
-                margin-bottom: 0.5rem;
+            .nav-tabs .nav-item .nav-link {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
             }
+        }
 
-            p {
-                margin-bottom: 1rem;
+        .tab-content .profile-section {
+            margin: 1rem;
+            padding: 2rem 1rem;
+
+            .statistics-grid {
+                grid-template-columns: 1fr; // Single column on mobile
+                gap: 1.5rem;
+                max-width: none;
+
+                .stat-card {
+                    padding: 2rem 1.5rem;
+
+                    .stat-icon {
+                        width: 50px;
+                        height: 50px;
+                        font-size: 1.5rem;
+                    }
+
+                    .stat-content {
+                        .stat-number {
+                            font-size: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 576px) {
+        .profile-header {
+            .profile-info {
+                .profile-stats {
+                    .stat-item {
+                        padding: 1.25rem 0.75rem;
+
+                        .stat-number {
+                            font-size: 2rem;
+                        }
+
+                        .stat-label {
+                            font-size: 0.85rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tab-content .profile-section {
+            .statistics-grid {
+                .stat-card {
+                    padding: 1.5rem 1rem;
+
+                    .stat-content {
+                        .stat-number {
+                            font-size: 1.8rem;
+                        }
+
+                        h6 {
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
             }
         }
     }
@@ -2196,14 +2513,14 @@ textarea.form-control {
 
             &:focus {
                 border-color: white;
-                box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 0  0.2rem rgba(255, 255, 255, 0.3);
                 outline: none;
             }
 
             &:checked {
                 background-color: white;
                 border-color: white;
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%233498db' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e"); // Changed to blue tick
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23dc3545' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
                 background-size: 100% 100%;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -2588,17 +2905,6 @@ textarea.form-control {
                                 }
                             }
                         }
-
-                        .task-selection {
-                            .form-check-input {
-                                border-color: #dc3545;
-
-                                &:checked {
-                                    background-color: #dc3545;
-                                    border-color: #dc3545;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -2613,7 +2919,6 @@ textarea.form-control {
         border-radius: 20px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        margin-top: 2rem;
 
         .empty-icon {
             width: 120px;

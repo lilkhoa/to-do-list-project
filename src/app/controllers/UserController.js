@@ -20,7 +20,8 @@ class UserController {
             const userTasks = await Task.findAll(userId);
             const totalTasks = userTasks.length;
             const completedTasks = userTasks.filter(task => task.completed).length;
-            const pendingTasks = totalTasks - completedTasks;
+            const overdueTasks = userTasks.filter(task => task.overdue).length;
+            const pendingTasks = totalTasks - completedTasks - overdueTasks;
             
             // Get recent tasks (last 5)
             const recentTasks = userTasks.slice(0, 5);
