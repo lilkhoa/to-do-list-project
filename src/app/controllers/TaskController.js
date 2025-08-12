@@ -244,11 +244,11 @@ class TaskController {
             }
 
             if (taskIds.length === 0) {
-                return res.redirect('/task?bulk-complete-error=No tasks selected');
+                return res.redirect('/task/bulk/bulk-action?bulk-complete-error=No tasks selected');
             }
 
             await Task.bulkComplete(taskIds);
-            res.redirect(`/task?bulk-complete-success=${taskIds.length}`); 
+            res.redirect(`/task/bulk/bulk-action?bulk-complete-success=${taskIds.length}`); 
         } catch (error) {
             console.error('Error completing tasks in bulk:', error);
             next();
@@ -265,11 +265,11 @@ class TaskController {
             }
 
             if (taskIds.length === 0) {
-                return res.redirect('/task?bulk-incomplete-error=No tasks selected');
+                return res.redirect('/task/bulk/bulk-action?bulk-incomplete-error=No tasks selected');
             }
 
             await Task.bulkIncomplete(taskIds);
-            res.redirect(`/task?bulk-incomplete-success=${taskIds.length}`);
+            res.redirect(`/task/bulk/bulk-action?bulk-incomplete-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error marking tasks as incomplete in bulk:', error);
             next();
@@ -286,11 +286,11 @@ class TaskController {
             }
 
             if (taskIds.length === 0) {
-                return res.redirect('/task?bulk-delete-error=No tasks selected');
+                return res.redirect('/task/bulk/bulk-action?bulk-delete-error=No tasks selected');
             }
             
             await Task.bulkDelete(taskIds);
-            res.redirect(`/task?bulk-delete-success=${taskIds.length}`);
+            res.redirect(`/task/bulk/bulk-action?bulk-delete-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error deleting tasks in bulk:', error);
             next();
