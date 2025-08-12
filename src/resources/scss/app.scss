@@ -778,11 +778,6 @@ textarea.form-control {
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
 
-    &:hover {
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        transform: translateY(-2px);
-    }
-
     .section-header {
         background: linear-gradient(135deg, #d5d5d5 0%, #bcbcbc 100%);
         padding: 1.5rem 2rem;
@@ -832,7 +827,7 @@ textarea.form-control {
     }
 
     &.pending-section .section-header {
-        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); // Changed to blue gradient
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); 
     }
 
     &.completed-section .section-header {
@@ -983,19 +978,52 @@ textarea.form-control {
 
 // Task detail page styling
 .task-detail-container {
-    max-width: 900px;
-    margin: 0 auto;
+    // background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    min-height: 100vh;
     padding: 2rem 1rem;
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 }
 
 .task-detail-header {
     margin-bottom: 2rem;
 
-    .back-navigation a {
-        text-decoration: none;
+    .back-navigation {
+        margin-bottom: 1rem;
 
-        i {
-            margin-right: 0.5rem;
+        a {
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem; // Match home page button padding
+            border-radius: 12px; // Match home page button border radius
+            transition: all 0.3s ease;
+            border: 2px solid #6c757d; // Add border like home page buttons
+            background: white; // Add background
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Add shadow like home page buttons
+
+            &:hover {
+                background-color: #6c757d; // Fill background on hover
+                border-color: #6c757d;
+                color: white;
+                transform: translateY(-2px); // Lift effect like home page buttons
+                box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3); // Enhanced shadow on hover
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25); // Focus ring
+            }
+
+            i {
+                font-size: 1.1rem;
+            }
         }
     }
 
@@ -1013,7 +1041,11 @@ textarea.form-control {
 .task-detail-card {
     .card {
         border: none;
-        border-radius: $border-radius;
+        border-radius: 16px; 
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); 
+        border: 1px solid rgba(255, 255, 255, 0.2); 
+        overflow: hidden;
+        transition: all 0.3s ease;
     }
 
     .task-status-header {
@@ -1021,17 +1053,17 @@ textarea.form-control {
         border-radius: $border-radius $border-radius 0 0;
 
         &.completed {
-            background: linear-gradient(135deg, $success-color, color.scale($success-color, $lightness: -10%));
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
             color: white;
         }
 
         &.overdue {
-            background: linear-gradient(135deg, $danger-color, color.scale($danger-color, $lightness: -10%));
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
             color: white;
         }
 
         &.pending {
-            background: linear-gradient(135deg, $primary-color, color.scale($primary-color, $lightness: -10%));
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
         }
 
