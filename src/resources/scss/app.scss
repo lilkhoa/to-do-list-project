@@ -14,6 +14,29 @@
     padding-bottom: 1rem;
 }
 
+.empty-state {
+    .btn {
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        // Make sure it has the same outline primary styling as header buttons
+        &.btn-outline-primary {
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            }
+        }
+    }
+}
+
 // Card enhancements
 .card {
     border: none;
@@ -1749,11 +1772,6 @@ textarea.form-control {
                     transition: all 0.3s ease;
                     text-align: center; // Center align for better symmetry
 
-                    &:hover {
-                        transform: translateY(-5px);
-                        box-shadow: 0 8px 30px rgba(255, 117, 140, 0.15); // Pink hover shadow
-                    }
-
                     .stat-number {
                         display: block;
                         font-size: 3rem; // Increased size for better prominence
@@ -1885,11 +1903,6 @@ textarea.form-control {
                         height: 4px;
                         background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink accent bar
                         border-radius: 0 0 4px 4px;
-                    }
-
-                    &:hover {
-                        transform: translateY(-8px); // More pronounced hover
-                        box-shadow: 0 15px 40px rgba(255, 117, 140, 0.15); // Pink hover shadow
                     }
 
                     .stat-icon {
@@ -2029,18 +2042,43 @@ textarea.form-control {
                     margin-bottom: 1.5rem;
                 }
 
-                .btn {
+                .btn-outline-profile {
+                    border: 2px solid #ff758c;
+                    color: #ff758c;
+                    background: transparent;
                     border-radius: 12px;
                     padding: 0.75rem 1.5rem;
                     font-weight: 600;
                     transition: all 0.3s ease;
-                    background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink button
-                    border: none;
-                    color: white;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    text-decoration: none;
 
                     &:hover {
+                        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+                        border-color: #ff758c;
+                        color: white;
                         transform: translateY(-2px);
-                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3);
+                    }
+
+                    &:focus {
+                        box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.25);
+                        border-color: #ff758c;
+                        color: #ff758c;
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                        background: linear-gradient(135deg, #ff6b7a, #ff6fa1);
+                        border-color: #ff6b7a;
+                        color: white;
+                    }
+
+                    i {
+                        font-size: 1rem;
+                        color: #ff758c;
                     }
                 }
             }
