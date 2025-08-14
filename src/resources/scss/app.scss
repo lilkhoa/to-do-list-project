@@ -1723,7 +1723,7 @@ textarea.form-control {
             left: 0;
             right: 0;
             height: 150px;
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); // Updated to pink gradient
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); 
             z-index: 1;
         }
 
@@ -1746,18 +1746,18 @@ textarea.form-control {
                 right: 420px;
                 width: 40px;
                 height: 40px;
-                background: linear-gradient(135deg, #ff758c, #ff7eb3); // Updated to pink gradient
+                background: linear-gradient(135deg, #43cea2, #185a9d); 
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: white;
-                box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3); // Pink shadow
                 transition: all 0.3s ease;
 
                 &:hover {
                     transform: scale(1.1);
-                    box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4); // Enhanced pink shadow
+                    box-shadow: 0 6px 20px rgba(67, 206, 162, 0.4);
                 }
 
                 i {
@@ -1807,7 +1807,7 @@ textarea.form-control {
                         display: block;
                         font-size: 3rem; // Increased size for better prominence
                         font-weight: 700;
-                        color: #ff758c; // Updated to pink color
+                        color: #43cea2; // Updated to pink color
                         margin-bottom: 0.5rem; // Increased margin
                         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     }
@@ -1858,19 +1858,19 @@ textarea.form-control {
                     }
 
                     &:hover {
-                        background: rgba(255, 117, 140, 0.1); // Pink hover background
-                        color: #ff758c; // Pink hover color
+                        background: rgba(67, 206, 162, 0.1); 
+                        color: #43cea2; 
                         transform: translateY(-2px);
                     }
 
                     &.active {
-                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient for active
+                        background: linear-gradient(135deg, #43cea2, #185a9d); 
                         color: white;
-                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                        box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3); 
 
                         &:hover {
                             transform: translateY(-2px);
-                            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4); // Enhanced pink shadow
+                            box-shadow: 0 6px 20px rgba(67, 206, 162, 0.4);
                         }
                     }
                 }
@@ -1900,7 +1900,7 @@ textarea.form-control {
 
                 i {
                     font-size: 1.4rem;
-                    color: #ff758c; // Updated to pink color
+                    color: #43cea2; 
                 }
             }
 
@@ -1932,7 +1932,7 @@ textarea.form-control {
                         transform: translateX(-50%);
                         width: 60px; // Make it a centered bar instead of side line
                         height: 4px;
-                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink accent bar
+                        background: linear-gradient(135deg, #43cea2, #185a9d);
                         border-radius: 0 0 4px 4px;
                     }
 
@@ -1959,9 +1959,9 @@ textarea.form-control {
                         }
 
                         &.total {
-                            background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient for total
+                            background: linear-gradient(135deg, #43cea2, #185a9d);
                             color: white;
-                            box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                            box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3);
                         }
                     }
 
@@ -2011,7 +2011,7 @@ textarea.form-control {
                     }
 
                     &:hover {
-                        background: rgba(255, 117, 140, 0.05); // Pink hover background
+                        background: rgba(67, 206, 162, 0.05);
                         border-radius: 8px;
                         margin: 0 -1rem;
                         padding: 1rem;
@@ -2026,7 +2026,7 @@ textarea.form-control {
                         align-items: center;
                         justify-content: center;
                         font-size: 1.1rem;
-                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink gradient
+                        background: linear-gradient(135deg, #43cea2, #185a9d);
                     }
 
                     .activity-details {
@@ -2074,8 +2074,8 @@ textarea.form-control {
                 }
 
                 .btn-outline-profile {
-                    border: 2px solid #ff758c;
-                    color: #ff758c;
+                    border: 2px solid #43cea2;
+                    color: #43cea2;
                     background: transparent;
                     border-radius: 12px;
                     padding: 0.75rem 1.5rem;
@@ -2087,29 +2087,29 @@ textarea.form-control {
                     text-decoration: none;
 
                     &:hover {
-                        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-                        border-color: #ff758c;
+                        background: linear-gradient(135deg, #43cea2, #185a9d);
+                        border-color: #43cea2;
                         color: white;
                         transform: translateY(-2px);
-                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3);
+                        box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3); 
                     }
 
                     &:focus {
-                        box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.25);
-                        border-color: #ff758c;
-                        color: #ff758c;
+                        box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.25); 
+                        border-color: #43cea2;
+                        color: #43cea2;
                     }
 
                     &:active {
                         transform: translateY(0);
-                        background: linear-gradient(135deg, #ff6b7a, #ff6fa1);
-                        border-color: #ff6b7a;
+                        background: linear-gradient(135deg, #359b7a, #144f85); 
+                        border-color: #359b7a;
                         color: white;
                     }
 
                     i {
                         font-size: 1rem;
-                        color: #ff758c;
+                        color: #43cea2;
                     }
                 }
             }
@@ -2132,8 +2132,8 @@ textarea.form-control {
                         transition: all 0.3s ease;
 
                         &:focus {
-                            border-color: #ff758c; // Pink border on focus
-                            box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.15); // Pink focus ring
+                            border-color: #43cea2;
+                            box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.15); 
                             transform: translateY(-2px);
                         }
                     }
@@ -2147,21 +2147,21 @@ textarea.form-control {
                         padding: 0.875rem 2rem;
                         font-weight: 600;
                         transition: all 0.3s ease;
-                        background: linear-gradient(135deg, #ff758c, #ff7eb3); // Pink button
+                        background: linear-gradient(135deg, #43cea2, #185a9d);
                         border: none;
                         color: white;
 
                         &:hover {
                             transform: translateY(-2px);
-                            box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3); // Pink shadow
+                            box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3);
                         }
                     }
                 }
             }
 
             .btn-outline-profile {
-                border: 2px solid #ff758c;
-                color: #ff758c;
+                border: 2px solid #43cea2;
+                color: #43cea2;
                 background: transparent;
                 border-radius: 12px;
                 padding: 0.75rem 1.5rem;
@@ -2173,23 +2173,23 @@ textarea.form-control {
                 text-decoration: none;
 
                 &:hover {
-                    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-                    border-color: #ff758c;
+                    background: linear-gradient(135deg, #43cea2, #185a9d);
+                    border-color: #43cea2;
                     color: white;
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3);
+                    box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3); 
                 }
 
                 &:focus {
-                    box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.25);
-                    border-color: #ff758c;
-                    color: #ff758c;
+                    box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.25); // Updated focus ring
+                    border-color: #43cea2;
+                    color: #43cea2;
                 }
 
                 &:active {
                     transform: translateY(0);
-                    background: linear-gradient(135deg, #ff6b7a, #ff6fa1);
-                    border-color: #ff6b7a;
+                    background: linear-gradient(135deg, #359b7a, #144f85); 
+                    border-color: #359b7a;
                     color: white;
                 }
 
@@ -3343,7 +3343,7 @@ textarea.form-control {
         }
 
         .auth-link {
-            color: #66c5ea;
+            color: #43cea2;
             text-decoration: none;
             font-weight: 700;
             transition: all 0.3s ease;
@@ -3351,9 +3351,8 @@ textarea.form-control {
             border-radius: 6px;
 
             &:hover {
-                color: #4db6d3;
-                background: rgba(102, 126, 234, 0.1);
-                text-decoration: none;
+                color: #359b7a;
+                text-decoration: underline;
             }
         }
     }
@@ -3441,7 +3440,7 @@ textarea.form-control {
 
 // Home Landing Page Styling
 .home-landing-container {
-    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); // Your pink gradient
+    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); 
     min-height: 100vh;
     position: relative;
     overflow: hidden;
@@ -3529,11 +3528,6 @@ textarea.form-control {
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
 
-            &:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 25px 75px rgba(0, 0, 0, 0.2);
-            }
-
             .login-title {
                 font-size: 2rem;
                 font-weight: 700;
@@ -3581,7 +3575,7 @@ textarea.form-control {
                         gap: 0.5rem;
 
                         i {
-                            color: #ff758c;
+                            color: #43cea2;
                             font-size: 1.1rem;
                         }
                     }
@@ -3600,14 +3594,14 @@ textarea.form-control {
                         }
 
                         &:focus {
-                            border-color: #ff758c;
-                            box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.15);
+                            border-color: #43cea2;
+                            box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.15);
                             transform: translateY(-2px);
                             background: white;
                         }
 
                         &:hover {
-                            border-color: #ff97ab;
+                            border-color: #5dd4ae;
                             background: white;
                         }
                     }
@@ -3631,12 +3625,12 @@ textarea.form-control {
                             border-radius: 4px;
 
                             &:checked {
-                                background-color: #ff758c;
-                                border-color: #ff758c;
+                                background-color: #43cea2; 
+                                border-color: #43cea2;
                             }
 
                             &:focus {
-                                box-shadow: 0 0 0 0.2rem rgba(255, 117, 140, 0.15);
+                                box-shadow: 0 0 0 0.2rem rgba(67, 206, 162, 0.15);
                             }
                         }
 
@@ -3649,14 +3643,14 @@ textarea.form-control {
                     }
 
                     .forgot-password {
-                        color: #ff758c;
+                        color: #43cea2;
                         text-decoration: none;
                         font-weight: 600;
                         font-size: 0.9rem;
                         transition: all 0.3s ease;
 
                         &:hover {
-                            color: #ff6b7a;
+                            color: #359b7a;
                             text-decoration: underline;
                         }
                     }
@@ -3665,7 +3659,7 @@ textarea.form-control {
                 .form-actions {
                     .login-btn {
                         width: 100%;
-                        background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+                        background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
                         border: none;
                         border-radius: 12px;
                         padding: 1rem 2rem;
@@ -3673,16 +3667,16 @@ textarea.form-control {
                         font-weight: 700;
                         color: white;
                         transition: all 0.3s ease;
-                        box-shadow: 0 4px 16px rgba(255, 117, 140, 0.3);
+                        box-shadow: 0 4px 16px rgba(67, 206, 162, 0.3);
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         gap: 0.75rem;
 
                         &:hover {
-                            background: linear-gradient(135deg, #ff6b7a 0%, #ff6fa1 100%);
+                            background: linear-gradient(135deg, #359b7a 0%, #144f85 100%);
                             transform: translateY(-3px);
-                            box-shadow: 0 8px 25px rgba(255, 117, 140, 0.4);
+                            box-shadow: 0 8px 25px rgba(67, 206, 162, 0.4);
                             color: white;
                         }
 
@@ -3705,13 +3699,13 @@ textarea.form-control {
                 }
 
                 .signup-link {
-                    color: #ff758c;
+                    color: #43cea2;
                     text-decoration: none;
                     font-weight: 700;
                     transition: all 0.3s ease;
 
                     &:hover {
-                        color: #ff6b7a;
+                        color: #359b7a;
                         text-decoration: underline;
                     }
                 }
@@ -3808,7 +3802,7 @@ textarea.form-control {
                         font-weight: 500;
 
                         i {
-                            color: #ff758c;
+                            color: #43cea2;
                             font-size: 1.1rem;
                         }
                     }
@@ -3897,7 +3891,7 @@ textarea.form-control {
                             font-size: 1.2rem;
 
                             &.total {
-                                background: linear-gradient(135deg, #ff758c, #ff7eb3);
+                                background: linear-gradient(135deg, #43cea2, #185a9d);
                                 color: white;
                             }
 
@@ -3953,7 +3947,7 @@ textarea.form-control {
                         }
 
                         &:hover {
-                            background: rgba(255, 117, 140, 0.05);
+                            background: rgba(67, 206, 162, 0.05);
                             border-radius: 8px;
                             margin: 0 -0.5rem;
                             padding: 0.75rem 0.5rem;
