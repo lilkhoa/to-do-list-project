@@ -41,7 +41,6 @@ class AuthController {
             res.redirect('/task');
         } catch (error) {
             console.error('Login error:', error);
-            next();
         }
     }
 
@@ -84,7 +83,6 @@ class AuthController {
             return res.redirect('/auth/register?success=Registration successful, please log in');
         } catch (error) {
             console.error('Registration error:', error);
-            next();
         }
     }
 

@@ -61,8 +61,7 @@ A comprehensive, modern web-based to-do list application built with Node.js and 
    CREATE TABLE users (
        id INT PRIMARY KEY AUTO_INCREMENT,
        username VARCHAR(50) UNIQUE NOT NULL,
-       email VARCHAR(100) UNIQUE,
-       bio TEXT,
+       avatar VARCHAR(255),
        password VARCHAR(255) NOT NULL,
        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -73,6 +72,7 @@ A comprehensive, modern web-based to-do list application built with Node.js and 
        title VARCHAR(255) NOT NULL,
        description TEXT,
        completed BOOLEAN DEFAULT FALSE,
+       overdue BOOLEAN DEFAULT FALSE,
        due_datetime DATETIME,
        deleted_at TIMESTAMP NULL,
        user_id INT NOT NULL,

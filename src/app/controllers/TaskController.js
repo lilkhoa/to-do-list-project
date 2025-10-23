@@ -11,7 +11,6 @@ class TaskController {
             });
         } catch (error) {
             console.error('Error rendering create task page:', error);
-            next();
         }
     }
 
@@ -38,7 +37,6 @@ class TaskController {
             res.redirect(`/task/create?success=true`);
         } catch (error) {
             console.error('Error creating task:', error);
-            next();
         }
     }
 
@@ -55,7 +53,6 @@ class TaskController {
             res.redirect('/task'); // Redirect to home or task list after completion
         } catch (error) {
             console.error('Error completing task:', error);
-            next();
         }
     }
 
@@ -72,7 +69,6 @@ class TaskController {
             res.redirect('/task'); // Redirect to home or task list after marking as incomplete
         } catch (error) {
             console.error('Error marking task as incomplete:', error);
-            next();
         }
     }
 
@@ -93,7 +89,6 @@ class TaskController {
             res.render('task/detail', { task });
         } catch (error) {
             console.error('Error rendering task detail:', error);
-            next();
         }
     }
 
@@ -118,7 +113,6 @@ class TaskController {
             });
         } catch (error) {
             console.error('Error rendering edit task page:', error);
-            next();
         }
     }
 
@@ -145,7 +139,6 @@ class TaskController {
             res.redirect(`/task/${taskId}/edit?success=true`); 
         } catch (error) {
             console.error('Error updating task:', error);
-            next();
         }
     }
 
@@ -162,7 +155,6 @@ class TaskController {
             res.redirect('/task?deleted-success=true'); // Redirect to home or task list after deletion
         } catch (error) {
             console.error('Error deleting task:', error);
-            next();
         }
     }
 
@@ -172,7 +164,6 @@ class TaskController {
             res.render('task/home');
         } catch (error) {
             console.error('Error fetching courses:', error);
-            next();
         }
     }
 
@@ -184,7 +175,6 @@ class TaskController {
             res.render('task/trash', { deletedTasks });
         } catch (error) {
             console.error('Error fetching trashed tasks:', error);
-            next();
         }
     }
 
@@ -200,7 +190,6 @@ class TaskController {
             res.redirect('/task/deleted/trash?restored-success=true');
         } catch (error) {
             console.error('Error restoring task:', error);
-            next();
         }
     }
 
@@ -215,7 +204,6 @@ class TaskController {
             res.redirect('/task/deleted/trash?deleted-success=true');
         } catch (error) {
             console.error('Error permanently deleting task:', error);
-            next();
         }
     }
 
@@ -230,7 +218,6 @@ class TaskController {
             res.redirect('/task/deleted/trash?empty-trash-success=true');
         } catch (error) {
             console.error('Error emptying trash:', error);
-            next();
         }
     }
 
@@ -251,7 +238,6 @@ class TaskController {
             res.redirect(`/task/bulk/bulk-action?bulk-complete-success=${taskIds.length}`); 
         } catch (error) {
             console.error('Error completing tasks in bulk:', error);
-            next();
         }
     }
 
@@ -272,7 +258,6 @@ class TaskController {
             res.redirect(`/task/bulk/bulk-action?bulk-incomplete-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error marking tasks as incomplete in bulk:', error);
-            next();
         }
     }
 
@@ -293,7 +278,6 @@ class TaskController {
             res.redirect(`/task/bulk/bulk-action?bulk-delete-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error deleting tasks in bulk:', error);
-            next();
         }
     }
 
@@ -314,7 +298,6 @@ class TaskController {
             res.redirect(`/task/deleted/trash?bulk-restore-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error restoring tasks in bulk:', error);
-            next();
         }
     }
 
@@ -335,7 +318,6 @@ class TaskController {
             res.redirect(`/task/deleted/trash?bulk-permanent-delete-success=${taskIds.length}`);
         } catch (error) {
             console.error('Error permanently deleting tasks in bulk:', error);
-            next();
         }
     }
 
@@ -347,7 +329,6 @@ class TaskController {
             res.render('task/bulk-action', { tasks });
         } catch (error) {
             console.error('Error rendering bulk action page:', error);
-            next();
         }
     }
 }

@@ -6,7 +6,6 @@ class SiteController {
             res.render('home');
         } catch (error) {
             console.error('Error fetching courses:', error);
-            next();
         }
     }
 }

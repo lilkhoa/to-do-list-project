@@ -36,7 +36,6 @@ class UserController {
             });
         } catch (error) {
             console.error('Error fetching user profile:', error);
-            next();
         }
     }
 
@@ -67,7 +66,6 @@ class UserController {
             res.redirect('/user/profile?password-success=true');
         } catch (error) {
             console.error('Error changing password:', error);
-            next();
         }
     }
 
@@ -92,7 +90,6 @@ class UserController {
             res.redirect('/user/profile?avatar-success=true');
         } catch (error) {
             console.error('Error changing avatar:', error);
-            next();
         }
     }
 }
