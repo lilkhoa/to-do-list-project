@@ -52,12 +52,23 @@ A comprehensive, modern web-based to-do list application built with Node.js and 
    ```bash
    npm install
    ```
+3. **Setup your environment**
 
-3. **Database Setup**
+   Create a `.env` file in the root directory and add the following configuration:
+   ```env
+   DB_HOST=localhost
+   DB_USER=your_mysql_username
+   DB_PASSWORD=your_mysql_password
+   DB_NAME=task_manager
+   SESSION_SECRET=your_session_secret_key
+   PORT=3000
+   ```
+
+4. **Database Setup**
    ```sql
-   CREATE DATABASE todo_app;
-   USE todo_app;
-   
+   CREATE DATABASE task_manager;
+   USE task_manager;
+
    CREATE TABLE users (
        id INT PRIMARY KEY AUTO_INCREMENT,
        username VARCHAR(50) UNIQUE NOT NULL,
@@ -80,17 +91,6 @@ A comprehensive, modern web-based to-do list application built with Node.js and 
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
    );
-   ```
-
-4. **Environment Configuration**
-   Create a `.env` file in the root directory:
-   ```env
-   DB_HOST=localhost
-   DB_USER=your_mysql_username
-   DB_PASSWORD=your_mysql_password
-   DB_NAME=todo_app
-   SESSION_SECRET=your_session_secret_key
-   PORT=3000
    ```
 
 5. **Compile SCSS (Optional)**
@@ -152,5 +152,8 @@ to-do-list-project/
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Demo video
+You can watch the demo video of the project here: [Demo Video](https://www.youtube.com/watch?v=_ifhm1jCh30)
 
 **Made by [lilkhoa](https://github.com/lilkhoa)**
